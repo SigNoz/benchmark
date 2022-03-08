@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: otel-collector-conf
+  labels:
+    app: opentelemetry
+    component: otel-collector-conf
+data:
+  otel-collector-config.yaml: |
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+          http:
+      prometheus:
+        config:
+          scrape_configs:
+            - job_name: 'node-exporter'
+              kubernetes_sd_configs:
+                - role: endpoints
+              relabel_configs:
+              - source_labels: [__meta_kubernetes_endpoints_name]
+                regex: 'node-exporter'
+                action: keep
+
+    processors:
+      batch:
+        send_batch_size: 1000
+        timeout: 10s
+      resourcedetection:
+        detectors: [env, eks, ec2]
+        timeout: 2s
+
+    extensions:
+      health_check: {}
+      zpages: {}
+
+    exporters:
+      clickhousemetricswrite:
+        # endpoint: tcp://my-release-clickhouse.platform.svc.cluster.local:9000?database=signoz_metrics&username=admin&password=27ff0399-0d3a-4bd8-919d-17c2181e6fb9
+        endpoint: tcp://6.tcp.ngrok.io:19418?database=signoz_metrics
+        resource_to_telemetry_conversion:
+          enabled: true
+      prometheus:
+        endpoint: 0.0.0.0:8889
+    service:
+      extensions: [health_check, zpages]
+      pipelines:
+        metrics:
+          receivers: [otlp, prometheus]
+          processors: [batch]
+          exporters: [clickhousemetricswrite]

@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: otel-collector
+  labels:
+    app.kubernetes.io/name: opentelemetry
+    app.kubernetes.io/component: otel-collector
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: opentelemetry
+      app.kubernetes.io/component: otel-collector
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: opentelemetry
+        app.kubernetes.io/component: otel-collector
+    spec:
+      containers:
+        - name: otel-collector
+          image: signoz/otelcontribcol:0.43.0
+          imagePullPolicy: Always
+          command:
+          - "/otelcontribcol"
+          - "--config=/conf/otel-collector-config.yaml"
+          env:
+            - name: K8S_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: HOST_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: HOST_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: K8S_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 200m
+              memory: 200Mi
+          ports:
+            - containerPort: 55679 # Default endpoint for ZPages.
+            - containerPort: 55680 # Default endpoint for OpenTelemetry receiver.
+            - containerPort: 55681 # Default endpoint for OpenTelemetry HTTP/1.0 receiver.
+            - containerPort: 4317 # Default endpoint for OpenTelemetry GRPC receiver.
+            - containerPort: 14250 # Default endpoint for Jaeger GRPC receiver.
+            - containerPort: 14268 # Default endpoint for Jaeger HTTP receiver.
+            - containerPort: 9411 # Default endpoint for Zipkin receiver.
+            - containerPort: 8888 # Default endpoint for querying metrics.
+          volumeMounts:
+            - name: otel-collector-config-vol
+              mountPath: /conf
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: 13133 # Health Check extension default port.
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: 13133 # Health Check extension default port.
+      volumes:
+        - name: otel-collector-config-vol
+          configMap:
+            name: otel-collector-conf
+            items:
+              - key: otel-collector-config.yaml
+                path: otel-collector-config.yaml
+      serviceAccountName: sa-otel-agent
