@@ -37,8 +37,7 @@ data:
 
     exporters:
       clickhousemetricswrite:
-        # endpoint: tcp://my-release-clickhouse.platform.svc.cluster.local:9000?database=signoz_metrics&username=admin&password=27ff0399-0d3a-4bd8-919d-17c2181e6fb9
-        endpoint: tcp://6.tcp.ngrok.io:19418?database=signoz_metrics
+        endpoint: tcp://my-release-clickhouse.platform.svc.cluster.local:9000?database=signoz_metrics&username=admin&password=27ff0399-0d3a-4bd8-919d-17c2181e6fb9
         resource_to_telemetry_conversion:
           enabled: true
       prometheus:
