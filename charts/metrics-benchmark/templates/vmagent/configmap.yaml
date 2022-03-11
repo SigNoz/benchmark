@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name:  {{ include "vm-benchmark.fullname" . }}-vmagent-cm
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "vm-benchmark.labels" . | nindent 4 }}
+data:
+  otel-collector-config.yaml: |
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+          http:
+      prometheus:
+        config:
+          global:
+            scrape_interval: {{ .Values.vmagent.scrapeInterval }}
+          scrape_configs:
+            - job_name: node_exporter
+              static_configs:
+              {{- $svc :=  include "vm-benchmark.nginxCached" .  }}
+              {{- $count := .Values.vmagent.targetsCount | int }}
+              {{- range until $count }}
+              - targets: ['{{ $svc }}']
+                labels:
+                  host_number: cfg_{{.}}
+              {{- end }}
+
+    processors:
+      batch:
+        send_batch_size: {{ .Values.vmagent.batchSize }}
+        timeout: {{ .Values.vmagent.batchTimeout }}
+
+    extensions:
+      health_check: {}
+      zpages: {}
+
+    exporters:
+      clickhousemetricswrite:
+        endpoint: {{ .Values.vmagent.clickhouseEndpoint }}
+        resource_to_telemetry_conversion:
+          enabled: true
+
+    service:
+      extensions: [health_check, zpages]
+      pipelines:
+        metrics:
+          receivers: [otlp, prometheus]
+          processors: [batch]
+          exporters: [clickhousemetricswrite]

@@ -1,0 +1,74 @@
+## List of configuration settings
+## for vmagent deployment
+vmagent:
+  image:
+    repository: signoz/otelcontribcol
+    pullPolicy: IfNotPresent
+    tag: "0.43.0"
+
+  ## targetsCount defines how many copies of nodeexporter
+  ## to add as scrape targets.
+  ## affects metrics volume and cardinality
+  targetsCount: 200
+
+  ## defines how frequently scrape targets
+  scrapeInterval: 60s
+
+  batchSize: 30000
+  batchTimeout: 10s
+  clickhouseEndpoint: tcp://my-release-clickhouse.platform.svc.cluster.local:9000?database=signoz_metrics&username=admin&password=27ff0399-0d3a-4bd8-919d-17c2181e6fb9
+
+  resources:
+    limits:
+      cpu: 2400m
+      memory: 10Gi
+    requests:
+      cpu: 1
+      memory: 5Gi
+
+  nodeSelector: { }
+  affinity: { }
+  tolerations: [ ]
+
+
+## List of configuration settings
+## for nginx + nodeexporter deployment
+nodeExporter:
+  image:
+    repository: prom/node-exporter
+    pullPolicy: IfNotPresent
+    tag: "v1.3.1"
+
+  ## Security context to be added to node-exporter pods
+  ##
+  securityContext:
+    fsGroup: 65534
+    runAsGroup: 65534
+    runAsNonRoot: true
+    runAsUser: 65534
+
+  resources:
+    limits:
+      cpu: 500m
+      memory: 700Mi
+    requests:
+      cpu: 100m
+      memory: 100Mi
+  
+  nginxResources:
+    limits:
+      cpu: 1
+      memory: 1700Mi
+    requests:
+      cpu: 500m
+      memory: 500Mi
+
+  nodeSelector: { }
+  affinity: { }
+  tolerations: [ ]
+
+  ## port for nodeexporter to run
+  hostPort: 9101
+  ## port for nginx to run
+  ## vmagent will use this port for scraping
+  hostPortCached: 9102
