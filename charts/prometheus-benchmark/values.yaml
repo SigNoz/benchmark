@@ -1,10 +1,10 @@
 ## List of configuration settings
-## for vmagent deployment
-vmagent:
+## for prometheus deployment
+prometheus:
   image:
-    repository: signoz/otelcontribcol
+    repository: quay.io/prometheus/prometheus
+    tag: v2.31.1
     pullPolicy: IfNotPresent
-    tag: "0.43.0"
 
   ## targetsCount defines how many copies of nodeexporter
   ## to add as scrape targets.
@@ -14,10 +14,15 @@ vmagent:
   ## defines how frequently scrape targets
   scrapeInterval: 10s
 
-  batchSize: 30000
-  batchTimeout: 10s
-  # clickhouseEndpoint: tcp://my-release-clickhouse.platform.svc.cluster.local:9000?database=signoz_metrics&username=admin&password=27ff0399-0d3a-4bd8-919d-17c2181e6fb9
-  clickhouseEndpoint: tcp://a289b4ce473f74eb3810aa520b5321f5-1518727952.us-east-1.elb.amazonaws.com:9000?database=signoz_metrics&username=admin&password=27ff0399-0d3a-4bd8-919d-17c2181e6fb9
+  ## remote-write configurations for prometheus
+  ## prometheus will replicate data to all configured URLs
+  remoteWrite:
+      ## single-node: http://<victoriametrics-addr>:8428/api/v1/write
+      ## cluster: http://<vminsert-addr>:8480/insert/0/prometheus/
+    - url: ""
+      ## auth token for VictoriaMetrics.
+      ## leave empty if no token configured
+      token: ""
 
   resources:
     limits:
@@ -31,6 +36,8 @@ vmagent:
   affinity: { }
   tolerations: [ ]
 
+  port: 9090
+  serviceType: LoadBalancer
 
 ## List of configuration settings
 ## for nginx + nodeexporter deployment
@@ -71,5 +78,5 @@ nodeExporter:
   ## port for nodeexporter to run
   hostPort: 9101
   ## port for nginx to run
-  ## vmagent will use this port for scraping
+  ## prometheus will use this port for scraping
   hostPortCached: 9102

@@ -1,25 +1,15 @@
-# Prometheus benchmark
-Prometheus benchmark helm chart is used for deploying a simple
-benchmark setup to k8s cluster for benchmarking read (executing PromQL/MetricsQL queries)
-and write (via [Remote Write](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write) protocol)
-path of Prometheus-compatible TSDBs. 
-In VictoriaMetrics we use it to run tests against 
-our cloud solution, compare performance and compression between releases.
+# Metrics benchmark
+
+Metrics benchmark helm chart is used for deploying a simple
+benchmark setup to k8s cluster for benchmarking read (node exporter)
+and write (via `clickhouseexporter`) to ClickHouseDB.
 
 The helm chart deploys three pods:
 * nodeexporter + nginx (2 containers in one pod), where nodeexporter used as a metrics source
 and nginx as cache-server to reduce pressure on nodeexporter;
-* vmagent to scrape nodeexporter metrics and forward via remote-write to configured destinations;
-* vmalert + alertmanager (2 containers in one pod), where vmalert executes 
-[alerting rules](files/alerts.yaml) and sends notifications to alertmanager. Alertmanager is configured 
-to blackhole received notifications. vmalert + alertmanager pod is optional and used for generating the 
-read load. To disable pod creation set `.Values.vmalert.enabled=false`.
+* vmagent to scrape `nodeexporter` metrics and forward via `clickhouseexporter` to ClickHouseDB;
 
 Please, check [values.yaml](values.yaml) for configuration params.
-
-## Articles
-
-[Benchmarking Prometheus-compatible time series databases](https://victoriametrics.com/blog/remote-write-benchmark/).
 
 ## How to run
 
@@ -41,13 +31,12 @@ and nginx+nodeexporter pods.
 
 vmagent is configured to scrape and send its own metrics 
 with job label `vmagent`. These metrics will be written to the
-configured `.Values.vmagent.url.remoteWrite` destination.
+configured `.Values.vmagent.clickhouseEndpoint` destination i.e. ClickHouseDB.
 Use [grafana dashboard](https://grafana.com/grafana/dashboards/12683)
 to monitor vmagent's state.
 
-vmagent is not aware of `url.remoteWrite` VictoriaMetrics configuration 
-or its components, so it can't scrape their metrics. Please, configure 
-monitoring of `remoteWrite` destination manually by setting up an external monitoring 
-or updating [configmap.yaml](templates/vmagent/configmap.yaml) with corresponding
-targets. Use grafana dashboards for [single](https://grafana.com/grafana/dashboards/10229)
-or [cluster](https://grafana.com/grafana/dashboards/11176) versions of VictoriaMetrics.
+## Articles
+
+This chart is inspired from following:
+- [Benchmarking Prometheus-compatible time series databases](https://victoriametrics.com/blog/remote-write-benchmark/)
+- [VictoriaMetrics/prometheus-benchmark GitHub repository](https://github.com/VictoriaMetrics/prometheus-benchmark)
