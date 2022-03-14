@@ -6,6 +6,9 @@ We can plot graphs in the **Dashboard** from SigNoz UI.
 
 ## Using Helm
 
+The `metrics-benchmark` helm chart uses single `Node-Exporter` alongside `Nginx` for cache.
+It deploys `Otel-Collector` which scrapes data simulated hosts with unique host labels.
+
 1. Change directory to `charts/metrics-benchmark`:
 ```bash
 cd charts/metrics-benchmark
@@ -17,6 +20,10 @@ make install
 ```
 
 ## Example Manifests
+
+We have two types of manifests:
+- Single-Node-Expoter: runs single instance of `Node-Exporter` and `Otel-Collector` as `Deployment`.
+- Multiple-Node-Expoters: runs multiple instance of `Node-Exporter` as `DaemonSet` and `Otel-Collector` as `Deployment`.
 
 1. Create `benchmark` namespace:
 ```bash
@@ -34,7 +41,7 @@ cd manifests
 cd single-node-exporter
 
 # Alternatively for DaemonSet, cd to single-node-exporter
-cd single-node-exporter
+cd multiple-node-exporters
 ```
 
 4. Create `Node-Exporter` resources:
