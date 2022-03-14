@@ -19,6 +19,8 @@ cd charts/metrics-benchmark
 make install
 ```
 
+_*Note: In case of SigNoz cluster running in different cluster, replace `my-release-clickhouse.platform.svc.cluster.local` in `values.yaml` with appropriate accessible address._
+
 ## Example Manifests
 
 We have two types of manifests:
@@ -40,7 +42,7 @@ cd manifests
 # For Deployment, cd to single-node-exporter
 cd single-node-exporter
 
-# Alternatively for DaemonSet, cd to single-node-exporter
+# Alternatively for DaemonSet, cd to multiple-node-exporters
 cd multiple-node-exporters
 ```
 
