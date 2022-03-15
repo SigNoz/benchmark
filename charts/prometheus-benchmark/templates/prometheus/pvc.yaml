@@ -1,0 +1,13 @@
+{{- if .Values.prometheus.persistence.enabled -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "vm-benchmark.fullname" . }}-prometheus-data-claim
+spec:
+  # storageClassName: ""
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+{{- end }}

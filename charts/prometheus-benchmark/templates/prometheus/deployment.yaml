@@ -23,6 +23,7 @@ spec:
           args:
             - --web.listen-address=0.0.0.0:{{ .Values.prometheus.port }}
             - --config.file=/config/prometheus.yml
+            - --web.enable-admin-api
           # args:
           #   - --httpListenAddr=:{{ .Values.prometheus.port }}
           #   - --promscrape.config=/config/scrape.yml
@@ -36,19 +37,28 @@ spec:
             - name: metrics
               containerPort: {{ .Values.prometheus.port }}
           resources:
-{{ toYaml .Values.prometheus.resources | indent 12 }}
+            {{- toYaml .Values.prometheus.resources | nindent 12 }}
           volumeMounts:
             - name: config
               mountPath: /config
+            {{- if .Values.prometheus.persistence.enabled }}
+            - name: {{ include "vm-benchmark.fullname" . }}-prometheus-data
+              mountPath: /prometheus
+            {{- end -}}
       {{- if .Values.prometheus.tolerations }}
       tolerations:
-{{ toYaml .Values.prometheus.tolerations | indent 8 }}
+        {{- toYaml .Values.prometheus.tolerations | nindent 8 }}
       {{- end }}
       {{- if .Values.prometheus.nodeSelector }}
       nodeSelector:
-{{ toYaml .Values.prometheus.nodeSelector | indent 8 }}
+        {{- toYaml .Values.prometheus.nodeSelector | nindent 8 }}
       {{- end }}
       volumes:
       - name: config
         configMap:
           name: {{ include "vm-benchmark.fullname" . }}-prometheus-cm
+      {{- if .Values.prometheus.persistence.enabled }}
+      - name: {{ include "vm-benchmark.fullname" . }}-prometheus-data
+        persistentVolumeClaim:
+          claimName: {{ include "vm-benchmark.fullname" . }}-prometheus-data-claim
+      {{- end }}

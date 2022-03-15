@@ -24,6 +24,12 @@ prometheus:
       ## leave empty if no token configured
       token: ""
 
+  persistence:
+    # -- Enable persistence using PVC.
+    enabled: true
+    # -- PVC Storage Request for Prometheus data volume.
+    size: 5Gi
+
   resources:
     limits:
       cpu: 2400m
@@ -37,7 +43,7 @@ prometheus:
   tolerations: [ ]
 
   port: 9090
-  serviceType: LoadBalancer
+  serviceType: ClusterIP
 
 ## List of configuration settings
 ## for nginx + nodeexporter deployment
