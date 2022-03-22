@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  otel-collector:
+    image: signoz/otelcontribcol:0.43.0
+    command: ["--config=/conf/config.yaml"]
+    configs:
+      - source: otel-config
+        target: /conf/config.yaml
+    environment:
+      NODE_HOSTNAME: '{{.Node.Hostname}}'
+      OTEL_RESOURCE_ATTRIBUTES: node_hostname={{.Node.Hostname}} ,node_id={{.Node.ID}},service_id={{.Service.ID}},service_name={{.Service.Name}}
+    ports:
+      - "4317:4317"     # OTLP gRPC receiver
+      - "4318:4318"     # OTLP HTTP receiver
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          memory: 2000m
+
+configs:
+  otel-config:
+    file: ./config.yaml
