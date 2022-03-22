@@ -15,8 +15,8 @@ receivers:
 
 processors:
   batch:
-    send_batch_size: 1000
-    timeout: 10s
+    send_batch_size: 30000
+    timeout: 30s
   # Ref: https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/processor/resourcedetectionprocessor/README.md
   resourcedetection:
     detectors: [env] # include ec2 is for AWS. Replace with gce for GCP and azure for Azure.
@@ -30,11 +30,10 @@ extensions:
   zpages: {}
 
 exporters:
-  clickhousemetricswrite:
-    # In case of non-default credentials, you can pass username and password query parameters
-    endpoint: "tcp://<SigNoz_ClickHouse_IP>:9000?database=signoz_metrics"
-    resource_to_telemetry_conversion:
-      enabled: true
+  otlp:
+    endpoint: "<IP of machine hosting SigNoz>:4317"
+    tls:
+      insecure: true
 
 service:
   extensions: [health_check, zpages]
@@ -42,4 +41,4 @@ service:
     metrics:
       receivers: [otlp, hostmetrics]
       processors: [resourcedetection, batch]
-      exporters: [clickhousemetricswrite]
+      exporters: [otlp]
