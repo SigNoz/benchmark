@@ -1,0 +1,45 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+  hostmetrics:
+    collection_interval: 1m
+    scrapers:
+      cpu:
+      memory:
+      load:
+      network:
+      disk:
+      filesystem:
+
+processors:
+  batch:
+    send_batch_size: 1000
+    timeout: 10s
+  # Ref: https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/processor/resourcedetectionprocessor/README.md
+  resourcedetection:
+    detectors: [env] # include ec2 is for AWS. Replace with gce for GCP and azure for Azure.
+    timeout: 2s
+    override: false
+    # system:
+    # hostname_sources: [os] # alternatively, use [dns,os] for setting FQDN as host.name and os as fallback
+
+extensions:
+  health_check: {}
+  zpages: {}
+
+exporters:
+  clickhousemetricswrite:
+    # In case of non-default credentials, you can pass username and password query parameters
+    endpoint: "tcp://<SigNoz_ClickHouse_IP>:9000?database=signoz_metrics"
+    resource_to_telemetry_conversion:
+      enabled: true
+
+service:
+  extensions: [health_check, zpages]
+  pipelines:
+    metrics:
+      receivers: [otlp, hostmetrics]
+      processors: [resourcedetection, batch]
+      exporters: [clickhousemetricswrite]
