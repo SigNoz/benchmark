@@ -8,8 +8,7 @@ services:
       - source: otel-config
         target: /conf/config.yaml
     environment:
-      NODE_HOSTNAME: '{{.Node.Hostname}}'
-      OTEL_RESOURCE_ATTRIBUTES: node_hostname={{.Node.Hostname}} ,node_id={{.Node.ID}},service_id={{.Service.ID}},service_name={{.Service.Name}}
+      OTEL_RESOURCE_ATTRIBUTES: host.name={{.Node.Hostname}},os.type={{.Node.Platform.OS}}
     ports:
       - "4317:4317"     # OTLP gRPC receiver
       - "4318:4318"     # OTLP HTTP receiver

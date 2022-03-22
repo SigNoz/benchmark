@@ -6,8 +6,8 @@ services:
     command: ["--config=/conf/config.yaml"]
     volumes:
       - ./config.yaml:/conf/config.yaml
-    environment:
-      OTEL_RESOURCE_ATTRIBUTES: node_hostname=test-instance,service_name=otel-collector
+    # environment:
+    #   OTEL_RESOURCE_ATTRIBUTES: host.name=test-instance,os.type=linux
     ports:
       - "4317:4317"     # OTLP gRPC receiver
       - "4318:4318"     # OTLP HTTP receiver
