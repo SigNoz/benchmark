@@ -14,7 +14,7 @@ delete:
 	helm uninstall $(RELEASE_NAME) -n $(NAMESPACE)
 
 upgrade:
-	helm upgrade $(RELEASE_NAME) -n $(NAMESPACE)
+	helm upgrade $(RELEASE_NAME) -n $(NAMESPACE) .
 
 list:
 	kubectl get all -n $(NAMESPACE)
