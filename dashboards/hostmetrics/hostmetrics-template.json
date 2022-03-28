@@ -1,0 +1,577 @@
+{
+  "title": "${DASHBOARD_TITLE}",
+  "uuid": "${DASHBOARD_UUID}",
+  "description": "",
+  "tags": [],
+  "widgets": [
+      {
+          "description": "",
+          "id": "959dab82-07ef-45fb-8889-9c79b0a5735d",
+          "isStacked": false,
+          "nullZeroValues": "zero",
+          "opacity": "1",
+          "panelTypes": "TIME_SERIES",
+          "query": [
+              {
+                  "legend": "{{state}}",
+                  "query": "system_memory_usage{${HOSTNAME_FILTER_COMMA}state=~\"buffered|cached|free|used\"}"
+              }
+          ],
+          "queryData": {
+              "data": [
+                  {
+                      "legend": "{{state}}",
+                      "query": "system_memory_usage{${HOSTNAME_FILTER_COMMA}state=~\"buffered|cached|free|used\"}",
+                      "queryData": []
+                  }
+              ],
+              "error": false,
+              "errorMessage": "",
+              "loading": false
+          },
+          "timePreferance": "GLOBAL_TIME",
+          "title": "Memory Usage",
+          "yAxisUnit": "bytes"
+      },
+      {
+          "description": "",
+          "id": "84adebba-baf9-455a-b742-b0c23c27a6cc",
+          "isStacked": false,
+          "nullZeroValues": "zero",
+          "opacity": "1",
+          "panelTypes": "TIME_SERIES",
+          "query": [
+              {
+                  "legend": "{{state}}",
+                  "query": "avg without(cpu) (irate(system_cpu_time{${HOSTNAME_FILTER_COMMA}state!=\"idle\"}[5m]))"
+              }
+          ],
+          "queryData": {
+              "data": [
+                  {
+                      "legend": "{{state}}",
+                      "query": "avg without(cpu) (irate(system_cpu_time{${HOSTNAME_FILTER_COMMA}state!=\"idle\"}[5m]))",
+                      "queryData": []
+                  }
+              ],
+              "error": false,
+              "errorMessage": "",
+              "loading": false
+          },
+          "timePreferance": "GLOBAL_TIME",
+          "title": "CPU Utilisation",
+          "yAxisUnit": "percentunit"
+      },
+      {
+          "description": "",
+          "id": "115b6abf-eaa5-4d89-a117-abefb755a8aa",
+          "isStacked": false,
+          "nullZeroValues": "zero",
+          "opacity": "1",
+          "panelTypes": "TIME_SERIES",
+          "query": [
+              {
+                  "legend": "{{device}}",
+                  "query": "system_filesystem_usage{${HOSTNAME_FILTER_COMMA}state=\"used\",device!~\"/dev/loop.*\", device!~\"tmpfs|nsfs\"}"
+              }
+          ],
+          "queryData": {
+              "data": [
+                  {
+                      "legend": "{{device}}",
+                      "query": "system_filesystem_usage{${HOSTNAME_FILTER_COMMA}state=\"used\",device!~\"/dev/loop.*\", device!~\"tmpfs|nsfs\"}",
+                      "queryData": []
+                  }
+              ],
+              "error": false,
+              "errorMessage": "",
+              "loading": false
+          },
+          "timePreferance": "GLOBAL_TIME",
+          "title": "Used Diskspace",
+          "yAxisUnit": "bytes"
+      },
+      {
+          "description": "",
+          "id": "7ac947df-7394-4dcb-9fe0-05ee45f23794",
+          "isStacked": false,
+          "nullZeroValues": "zero",
+          "opacity": "1",
+          "panelTypes": "TIME_SERIES",
+          "query": [
+              {
+                  "legend": "{{device}}",
+                  "query": "system_filesystem_usage{${HOSTNAME_FILTER_COMMA}state=\"free\",device!~\"/dev/loop.*\", device!~\"tmpfs|nsfs\"}"
+              }
+          ],
+          "queryData": {
+              "data": [
+                  {
+                      "legend": "{{device}}",
+                      "query": "system_filesystem_usage{${HOSTNAME_FILTER_COMMA}state=\"free\",device!~\"/dev/loop.*\", device!~\"tmpfs|nsfs\"}",
+                      "queryData": []
+                  }
+              ],
+              "error": false,
+              "errorMessage": "",
+              "loading": false
+          },
+          "timePreferance": "GLOBAL_TIME",
+          "title": "Avaiable Disk",
+          "yAxisUnit": "bytes"
+      },
+      {
+          "description": "",
+          "id": "c99de411-fcf6-475c-a246-f8ac3e2f2b10",
+          "isStacked": false,
+          "nullZeroValues": "zero",
+          "opacity": "1",
+          "panelTypes": "TIME_SERIES",
+          "query": [
+              {
+                  "legend": "{{state}}",
+                  "query": "avg without(cpu) (irate(system_cpu_time{${HOSTNAME_FILTER_COMMA}state=\"idle\"}[5m]))"
+              }
+          ],
+          "queryData": {
+              "data": [
+                  {
+                      "legend": "{{state}}",
+                      "query": "avg without(cpu) (irate(system_cpu_time{${HOSTNAME_FILTER_COMMA}state=\"idle\"}[5m]))",
+                      "queryData": []
+                  }
+              ],
+              "error": false,
+              "errorMessage": "",
+              "loading": false
+          },
+          "timePreferance": "GLOBAL_TIME",
+          "title": "CPU Idle Percentage",
+          "yAxisUnit": "percentunit"
+      },
+      {
+          "description": "",
+          "id": "5801268e-ad30-4f3c-b8b2-a1a20ca85541",
+          "isStacked": false,
+          "nullZeroValues": "zero",
+          "opacity": "1",
+          "panelTypes": "TIME_SERIES",
+          "query": [
+              {
+                  "legend": "{{job}}",
+                  "query": "up"
+              }
+          ],
+          "queryData": {
+              "data": [
+                  {
+                      "legend": "{{job}}",
+                      "query": "up",
+                      "queryData": []
+                  }
+              ],
+              "error": false,
+              "errorMessage": "",
+              "loading": false
+          },
+          "timePreferance": "GLOBAL_TIME",
+          "title": "Collector UP status ",
+          "yAxisUnit": "none"
+      },
+      {
+          "description": "",
+          "id": "18fa7157-0081-4348-b633-26cfe65ccba8",
+          "isStacked": false,
+          "nullZeroValues": "zero",
+          "opacity": "1",
+          "panelTypes": "TIME_SERIES",
+          "query": [
+              {
+                  "legend": "{{direction}}",
+                  "query": "avg without(device) (irate(system_network_io{${HOSTNAME_FILTER}}[5m]))"
+              }
+          ],
+          "queryData": {
+              "data": [
+                  {
+                      "legend": "{{direction}}",
+                      "query": "avg without(device) (irate(system_network_io{${HOSTNAME_FILTER}}[5m]))",
+                      "queryData": []
+                  }
+              ],
+              "error": false,
+              "errorMessage": "",
+              "loading": false
+          },
+          "timePreferance": "GLOBAL_TIME",
+          "title": "Total Network IO",
+          "yAxisUnit": "binBps"
+      },
+      {
+          "description": "",
+          "id": "e55a1b9c-dfb1-4b5a-b203-f1966a3a0cc5",
+          "isStacked": false,
+          "nullZeroValues": "zero",
+          "opacity": "1",
+          "panelTypes": "TIME_SERIES",
+          "query": [
+              {
+                  "legend": "{{device}}-{{direction}}",
+                  "query": "irate(system_network_io{${HOSTNAME_FILTER}}[5m])"
+              }
+          ],
+          "queryData": {
+              "data": [
+                  {
+                      "legend": "{{device}}-{{direction}}",
+                      "query": "irate(system_network_io{${HOSTNAME_FILTER}}[5m])",
+                      "queryData": []
+                  }
+              ],
+              "error": false,
+              "errorMessage": "",
+              "loading": false
+          },
+          "timePreferance": "GLOBAL_TIME",
+          "title": "Independent Network IO",
+          "yAxisUnit": "binBps"
+      },
+      {
+          "description": "",
+          "id": "13031601-b6d4-47c8-ab81-b64c28b8defd",
+          "isStacked": false,
+          "nullZeroValues": "zero",
+          "opacity": "1",
+          "panelTypes": "TIME_SERIES",
+          "query": [
+              {
+                  "legend": "{{device}}-{{direction}}",
+                  "query": "irate(system_disk_io{${HOSTNAME_FILTER_COMMA}device!~\"loop.*\", device!~\"tmpfs|nsfs\"}[5m])"
+              }
+          ],
+          "queryData": {
+              "data": [
+                  {
+                      "legend": "{{device}}-{{direction}}",
+                      "query": "irate(system_disk_io{${HOSTNAME_FILTER_COMMA}device!~\"loop.*\", device!~\"tmpfs|nsfs\"}[5m])",
+                      "queryData": []
+                  }
+              ],
+              "error": false,
+              "errorMessage": "",
+              "loading": false
+          },
+          "timePreferance": "GLOBAL_TIME",
+          "title": "Independent Disk IO",
+          "yAxisUnit": "binBps"
+      },
+      {
+          "description": "",
+          "id": "7643eb3f-2dd6-4a21-803e-516e853f92e3",
+          "isStacked": false,
+          "nullZeroValues": "zero",
+          "opacity": "1",
+          "panelTypes": "TIME_SERIES",
+          "query": [
+              {
+                  "legend": "{{direction}}",
+                  "query": "avg without(device) (irate(system_disk_io{${HOSTNAME_FILTER_COMMA}device!~\"loop.*\", device!~\"tmpfs|nsfs\"}[5m]))"
+              }
+          ],
+          "queryData": {
+              "data": [
+                  {
+                      "legend": "{{direction}}",
+                      "query": "avg without(device) (irate(system_disk_io{${HOSTNAME_FILTER_COMMA}device!~\"loop.*\", device!~\"tmpfs|nsfs\"}[5m]))",
+                      "queryData": []
+                  }
+              ],
+              "error": false,
+              "errorMessage": "",
+              "loading": false
+          },
+          "timePreferance": "GLOBAL_TIME",
+          "title": "Total Disk IO ",
+          "yAxisUnit": "binBps"
+      },
+      {
+          "description": "",
+          "id": "fb03ba5a-adb4-42fd-a082-adec2af1770e",
+          "isStacked": false,
+          "nullZeroValues": "zero",
+          "opacity": "1",
+          "panelTypes": "TIME_SERIES",
+          "query": [
+              {
+                  "legend": "1m-average",
+                  "query": "system_cpu_load_average_1m{${HOSTNAME_FILTER}}"
+              },
+              {
+                  "legend": "5m-average",
+                  "query": "system_cpu_load_average_5m{${HOSTNAME_FILTER}}"
+              },
+              {
+                  "legend": "15m-average",
+                  "query": "system_cpu_load_average_15m{${HOSTNAME_FILTER}}"
+              }
+          ],
+          "queryData": {
+              "data": [
+                  {
+                      "legend": "1m-average",
+                      "query": "system_cpu_load_average_1m{${HOSTNAME_FILTER}}",
+                      "queryData": []
+                  },
+                  {
+                      "legend": "5m-average",
+                      "query": "system_cpu_load_average_5m{${HOSTNAME_FILTER}}",
+                      "queryData": []
+                  },
+                  {
+                      "legend": "15m-average",
+                      "query": "system_cpu_load_average_15m{${HOSTNAME_FILTER}}",
+                      "queryData": []
+                  }
+              ],
+              "error": false,
+              "errorMessage": "",
+              "loading": false
+          },
+          "timePreferance": "GLOBAL_TIME",
+          "title": "Average CPU Load",
+          "yAxisUnit": "none"
+      },
+      {
+          "description": "",
+          "id": "bfd7825c-c9bc-4e7b-891b-1225eece07d8",
+          "isStacked": false,
+          "nullZeroValues": "zero",
+          "opacity": "1",
+          "panelTypes": "TIME_SERIES",
+          "query": [
+              {
+                  "legend": "{{device}}-{{state}}",
+                  "query": "system_filesystem_usage{${HOSTNAME_FILTER_COMMA}device!~\"/dev/loop.*\", device!~\"tmpfs|nsfs\"}"
+              }
+          ],
+          "queryData": {
+              "data": [
+                  {
+                      "legend": "{{device}}-{{state}}",
+                      "query": "system_filesystem_usage{${HOSTNAME_FILTER_COMMA}device!~\"/dev/loop.*\", device!~\"tmpfs|nsfs\"}",
+                      "queryData": []
+                  }
+              ],
+              "error": false,
+              "errorMessage": "",
+              "loading": false
+          },
+          "timePreferance": "GLOBAL_TIME",
+          "title": "Independent File System Usage"
+      },
+      {
+          "description": "",
+          "id": "ba153238-e3b2-4107-adb0-03c1ae1af905",
+          "isStacked": false,
+          "nullZeroValues": "zero",
+          "opacity": "1",
+          "panelTypes": "TIME_SERIES",
+          "query": [
+              {
+                  "legend": "{{state}}",
+                  "query": "sum without(device) (system_filesystem_usage{${HOSTNAME_FILTER_COMMA}device!~\"/dev/loop.*\", device!~\"tmpfs|nsfs\"})"
+              }
+          ],
+          "queryData": {
+              "data": [
+                  {
+                      "legend": "{{state}}",
+                      "query": "sum without(device) (system_filesystem_usage{${HOSTNAME_FILTER_COMMA}device!~\"/dev/loop.*\", device!~\"tmpfs|nsfs\"})",
+                      "queryData": []
+                  }
+              ],
+              "error": false,
+              "errorMessage": "",
+              "loading": false
+          },
+          "timePreferance": "GLOBAL_TIME",
+          "title": "Total File System Usage",
+          "yAxisUnit": "bytes"
+      },
+      {
+          "description": "The average queue length of the requests that were issued to the device\". It was previously known as Disk I/Os Weighted.",
+          "id": "b9459168-fe63-4c58-b6a9-4d47accfa8ea",
+          "isStacked": false,
+          "nullZeroValues": "zero",
+          "opacity": "1",
+          "panelTypes": "TIME_SERIES",
+          "query": [
+              {
+                  "legend": "{{device}}",
+                  "query": "irate(system_disk_weighted_io_time{${HOSTNAME_FILTER_COMMA}device!~\"loop.*\", device!~\"tmpfs|nsfs\"}[5m])"
+              }
+          ],
+          "queryData": {
+              "data": [
+                  {
+                      "legend": "{{device}}",
+                      "query": "irate(system_disk_weighted_io_time{${HOSTNAME_FILTER_COMMA}device!~\"loop.*\", device!~\"tmpfs|nsfs\"}[5m])",
+                      "queryData": []
+                  }
+              ],
+              "error": false,
+              "errorMessage": "",
+              "loading": false
+          },
+          "timePreferance": "GLOBAL_TIME",
+          "title": "Average Queue Size",
+          "yAxisUnit": "none"
+      }
+  ],
+  "layout": [
+      {
+          "w": 6,
+          "h": 2,
+          "x": 6,
+          "y": 0,
+          "i": "1",
+          "moved": false,
+          "static": false
+      },
+      {
+          "w": 6,
+          "h": 2,
+          "x": 0,
+          "y": 2,
+          "i": "2",
+          "moved": false,
+          "static": false
+      },
+      {
+          "w": 6,
+          "h": 2,
+          "x": 0,
+          "y": 4,
+          "i": "3",
+          "moved": false,
+          "static": false
+      },
+      {
+          "w": 6,
+          "h": 2,
+          "x": 6,
+          "y": 4,
+          "i": "4",
+          "moved": false,
+          "static": false
+      },
+      {
+          "w": 6,
+          "h": 2,
+          "x": 6,
+          "y": 2,
+          "i": "5",
+          "moved": false,
+          "static": false
+      },
+      {
+          "w": 6,
+          "h": 2,
+          "x": 0,
+          "y": 0,
+          "i": "6",
+          "moved": false,
+          "static": false
+      },
+      {
+          "w": 6,
+          "h": 2,
+          "x": 0,
+          "y": 6,
+          "i": "7",
+          "moved": false,
+          "static": false
+      },
+      {
+          "w": 6,
+          "h": 2,
+          "x": 6,
+          "y": 6,
+          "i": "8",
+          "moved": false,
+          "static": false
+      },
+      {
+          "w": 6,
+          "h": 2,
+          "x": 0,
+          "y": 8,
+          "i": "9",
+          "moved": false,
+          "static": false
+      },
+      {
+          "w": 6,
+          "h": 2,
+          "x": 6,
+          "y": 8,
+          "i": "10",
+          "moved": false,
+          "static": false
+      },
+      {
+          "w": 6,
+          "h": 2,
+          "x": 0,
+          "y": 12,
+          "i": "11",
+          "moved": false,
+          "static": false
+      },
+      {
+          "w": 6,
+          "h": 2,
+          "x": 6,
+          "y": 10,
+          "i": "12",
+          "moved": false,
+          "static": false
+      },
+      {
+          "w": 6,
+          "h": 2,
+          "x": 0,
+          "y": 10,
+          "i": "13",
+          "moved": false,
+          "static": false
+      },
+      {
+          "w": 6,
+          "h": 2,
+          "x": 6,
+          "y": 16,
+          "i": "14",
+          "moved": false,
+          "static": false
+      },
+      {
+          "w": 6,
+          "h": 2,
+          "x": 6,
+          "y": 12,
+          "i": "15",
+          "moved": false,
+          "static": false
+      },
+      {
+          "w": 6,
+          "h": 2,
+          "x": 6,
+          "y": 14,
+          "i": "16",
+          "moved": false,
+          "static": false
+      }
+  ]
+}
