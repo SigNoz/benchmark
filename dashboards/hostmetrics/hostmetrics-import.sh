@@ -4,10 +4,10 @@ cd "$(dirname "${BASH_SOURCE[0]}")";
 
 # Set the hostname filter if hostname is passed
 if [[ -z $HOSTNAME ]]; then
-    HOSTNAME_FILTER="host_name=\"${HOST_NAME}\""
-    HOSTNAME_FILTER_COMMA="${HOSTNAME_FILTER},"
+    HOSTNAME="ALL"
 else
-    HOST_NAME="ALL"
+    HOSTNAME_FILTER='host_name=\"'${HOSTNAME}'\"'
+    HOSTNAME_FILTER_COMMA="${HOSTNAME_FILTER},"
 fi
 
 # Set Dashboard UUID
@@ -17,7 +17,7 @@ fi
 
 # Set Dashboard Title
 if [[ -z $DASHBOARD_TITLE ]]; then
-    DASHBOARD_TITLE="HostMetrics Dashboard - $HOST_NAME"
+    DASHBOARD_TITLE="HostMetrics Dashboard - $HOSTNAME"
 fi
 
 # Setup sample apps into specified namespace
