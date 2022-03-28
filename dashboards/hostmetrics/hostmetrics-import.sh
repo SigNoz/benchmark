@@ -2,6 +2,7 @@
 
 cd "$(dirname "${BASH_SOURCE[0]}")";
 
+SIGNOZ_ENDPOINT=${SIGNOZ_ENDPOINT:-"http://localhost:3301"}
 # Set the hostname filter if hostname is passed
 if [[ -z $HOSTNAME ]]; then
     HOSTNAME="ALL"
@@ -29,7 +30,7 @@ fi
     envsubst | curl --fail --silent --output /dev/null --show-error --location --request POST \
     --header 'Accept: application/json, text/plain, */*' \
     --header 'Content-Type: application/json' \
-    --data-binary @- 'http://localhost:3301/api/v1/dashboards'
+    --data-binary @- '${SIGNOZ_ENDPOINT}/api/v1/dashboards'
 
 if [ $? -ne 0 ]; then
     echo "❌ Failed to import Host Metrics dashboard"
