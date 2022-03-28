@@ -30,7 +30,7 @@ fi
     envsubst | curl --fail --silent --output /dev/null --show-error --location --request POST \
     --header 'Accept: application/json, text/plain, */*' \
     --header 'Content-Type: application/json' \
-    --data-binary @- '${SIGNOZ_ENDPOINT}/api/v1/dashboards'
+    -v --data-binary @- "${SIGNOZ_ENDPOINT}/api/v1/dashboards"
 
 if [ $? -ne 0 ]; then
     echo "❌ Failed to import Host Metrics dashboard"
