@@ -24,15 +24,10 @@ spec:
             - --web.listen-address=0.0.0.0:{{ .Values.prometheus.port }}
             - --config.file=/config/prometheus.yml
             - --web.enable-admin-api
-          # args:
-          #   - --httpListenAddr=:{{ .Values.prometheus.port }}
-          #   - --promscrape.config=/config/scrape.yml
-          #   {{- range .Values.prometheus.remoteWrite }}
-          #   - --remoteWrite.url={{ .url }}
-          #   {{- if .token }}
-          #   - --remoteWrite.bearerToken={{ .token }}
-          #   {{- end }}
-          #   {{- end }}
+            {{- if .Values.prometheus.retention }}
+            - --storage.tsdb.retention.time={{ .Values.prometheus.retention }}
+            {{- end }}
+            - --storage.tsdb.path=/prometheus/data/
           ports:
             - name: metrics
               containerPort: {{ .Values.prometheus.port }}
@@ -43,11 +38,15 @@ spec:
               mountPath: /config
             {{- if .Values.prometheus.persistence.enabled }}
             - name: {{ include "vm-benchmark.fullname" . }}-prometheus-data
-              mountPath: /prometheus
+              mountPath: /prometheus/data
             {{- end -}}
       {{- if .Values.prometheus.tolerations }}
       tolerations:
         {{- toYaml .Values.prometheus.tolerations | nindent 8 }}
+      {{- end }}
+      {{- if .Values.prometheus.securityContext }}
+      securityContext:
+        {{- toYaml .Values.prometheus.securityContext | nindent 8 -}}
       {{- end }}
       {{- if .Values.prometheus.nodeSelector }}
       nodeSelector:

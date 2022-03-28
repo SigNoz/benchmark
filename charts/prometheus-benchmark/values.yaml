@@ -6,6 +6,9 @@ prometheus:
     tag: v2.31.1
     pullPolicy: IfNotPresent
 
+  port: 9090
+  serviceType: ClusterIP
+
   ## targetsCount defines how many copies of nodeexporter
   ## to add as scrape targets.
   ## affects metrics volume and cardinality
@@ -17,12 +20,15 @@ prometheus:
   ## remote-write configurations for prometheus
   ## prometheus will replicate data to all configured URLs
   remoteWrite:
-      ## single-node: http://<victoriametrics-addr>:8428/api/v1/write
-      ## cluster: http://<vminsert-addr>:8480/insert/0/prometheus/
+      ## single-node: http://<remote-addr>:8428/api/v1/write
+      ## cluster: http://<remote-insert-addr>:8480/insert/0/prometheus/
     - url: ""
-      ## auth token for VictoriaMetrics.
+      ## auth token for remote.
       ## leave empty if no token configured
       token: ""
+
+  ## Prometheus data retention period (default if not specified is 15 days)
+  retention: "15d"
 
   persistence:
     # -- Enable persistence using PVC.
@@ -42,8 +48,12 @@ prometheus:
   affinity: { }
   tolerations: [ ]
 
-  port: 9090
-  serviceType: ClusterIP
+  securityContext:
+    runAsUser: 65534
+    runAsNonRoot: true
+    runAsGroup: 65534
+    fsGroup: 65534
+
 
 ## List of configuration settings
 ## for nginx + nodeexporter deployment

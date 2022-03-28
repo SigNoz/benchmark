@@ -16,8 +16,8 @@ vmagent:
 
   batchSize: 30000
   batchTimeout: 10s
-  # clickhouseEndpoint: tcp://my-release-clickhouse.platform.svc.cluster.local:9000?database=signoz_metrics&username=admin&password=27ff0399-0d3a-4bd8-919d-17c2181e6fb9
-  clickhouseEndpoint: tcp://a289b4ce473f74eb3810aa520b5321f5-1518727952.us-east-1.elb.amazonaws.com:9000?database=signoz_metrics&username=admin&password=27ff0399-0d3a-4bd8-919d-17c2181e6fb9
+  # in case of SigNoz cluster in Docker, skip username and password from the endpoint
+  clickhouseEndpoint: tcp://my-release-clickhouse.platform.svc.cluster.local:9000?database=signoz_metrics&username=admin&password=27ff0399-0d3a-4bd8-919d-17c2181e6fb9
 
   resources:
     limits:
