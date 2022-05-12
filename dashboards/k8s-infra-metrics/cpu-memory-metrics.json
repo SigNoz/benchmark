@@ -1,0 +1,181 @@
+{
+  "description": "",
+  "tags": [],
+  "title": "K8s - CPU and Memory Metrics",
+  "widgets": [
+    {
+      "description": "",
+      "id": "ea28e6d1-ed75-4805-8dd3-e8a2ceb1ded4",
+      "isStacked": false,
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "panelTypes": "TIME_SERIES",
+      "query": [
+        {
+          "legend": "{{k8s_container_name}} in {{k8s_pod_name}}",
+          "query": "k8s_container_cpu_request{k8s_namespace_name!=\"kube-system\"}"
+        }
+      ],
+      "queryData": {
+        "data": [
+          {
+            "legend": "{{k8s_container_name}} in {{k8s_pod_name}}",
+            "query": "k8s_container_cpu_request{k8s_namespace_name!=\"kube-system\"}",
+            "queryData": []
+          }
+        ],
+        "error": false,
+        "errorMessage": "",
+        "loading": false
+      },
+      "timePreferance": "GLOBAL_TIME",
+      "title": "CPU Requests",
+      "yAxisUnit": "none"
+    },
+    {
+      "description": "",
+      "id": "1ee392c6-1334-4fa9-b432-9c213e3cdaff",
+      "isStacked": false,
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "panelTypes": "TIME_SERIES",
+      "query": [
+        {
+          "legend": "{{k8s_container_name}} in {{k8s_pod_name}}",
+          "query": "k8s_container_cpu_limit{k8s_namespace_name!=\"kube-system\"}"
+        }
+      ],
+      "queryData": {
+        "data": [
+          {
+            "legend": "{{k8s_container_name}} in {{k8s_pod_name}}",
+            "query": "k8s_container_cpu_limit{k8s_namespace_name!=\"kube-system\"}",
+            "queryData": []
+          }
+        ],
+        "error": false,
+        "errorMessage": "",
+        "loading": false
+      },
+      "timePreferance": "GLOBAL_TIME",
+      "title": "CPU Limits",
+      "yAxisUnit": "none"
+    },
+    {
+      "description": "",
+      "id": "38c9fc2c-c039-4056-8742-5d7f0f322f37",
+      "isStacked": false,
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "panelTypes": "TIME_SERIES",
+      "query": [
+        {
+          "legend": "{{k8s_container_name}} in {{k8s_pod_name}}",
+          "query": "k8s_container_memory_limit{k8s_namespace_name!=\"kube-system\"}"
+        }
+      ],
+      "queryData": {
+        "data": [
+          {
+            "legend": "{{k8s_container_name}} in {{k8s_pod_name}}",
+            "query": "k8s_container_memory_limit{k8s_namespace_name!=\"kube-system\"}",
+            "queryData": []
+          }
+        ],
+        "error": false,
+        "errorMessage": "",
+        "loading": false
+      },
+      "timePreferance": "GLOBAL_TIME",
+      "title": "Memory Limits",
+      "yAxisUnit": "bytes"
+    },
+    {
+      "description": "",
+      "id": "b47d595e-85a5-492c-86f1-a35c684a0444",
+      "isStacked": false,
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "panelTypes": "TIME_SERIES",
+      "query": [
+        {
+          "legend": "{{k8s_container_name}} in {{k8s_pod_name}}",
+          "query": "k8s_container_memory_request{k8s_namespace_name!=\"kube-system\"}"
+        }
+      ],
+      "queryData": {
+        "data": [
+          {
+            "legend": "{{k8s_container_name}} in {{k8s_pod_name}}",
+            "query": "k8s_container_memory_request{k8s_namespace_name!=\"kube-system\"}",
+            "queryData": []
+          }
+        ],
+        "error": false,
+        "errorMessage": "",
+        "loading": false
+      },
+      "timePreferance": "GLOBAL_TIME",
+      "title": "Memory Requests",
+      "yAxisUnit": "bytes"
+    },
+    {
+      "description": "",
+      "id": "27f9bf75-036d-4117-b82f-6f30ce0c39ae",
+      "isStacked": false,
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "panelTypes": "TIME_SERIES",
+      "query": [
+        {
+          "legend": "{{k8s_container_name}} in {{k8s_pod_name}}",
+          "query": "sum(rate(container_cpu_utilization{k8s_namespace_name!=\"kube-system\"}[5m])) by (k8s_container_name,k8s_pod_name)"
+        }
+      ],
+      "queryData": {
+        "data": [
+          {
+            "legend": "{{k8s_container_name}} in {{k8s_pod_name}}",
+            "query": "sum(rate(container_cpu_utilization{k8s_namespace_name!=\"kube-system\"}[5m])) by (k8s_container_name,k8s_pod_name)",
+            "queryData": []
+          }
+        ],
+        "error": false,
+        "errorMessage": "",
+        "loading": false
+      },
+      "timePreferance": "GLOBAL_TIME",
+      "title": "CPU Utilisation",
+      "yAxisUnit": "none"
+    },
+    {
+      "description": "",
+      "id": "5bd1a203-d6e7-48f5-91e2-7cec8f950499",
+      "isStacked": false,
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "panelTypes": "TIME_SERIES",
+      "query": [
+        {
+          "legend": "{{k8s_container_name}} in {{k8s_pod_name}}",
+          "query": "container_memory_usage{k8s_namespace_name!=\"kube-system\"}"
+        }
+      ],
+      "queryData": {
+        "data": [
+          {
+            "legend": "{{k8s_container_name}} in {{k8s_pod_name}}",
+            "query": "container_memory_usage{k8s_namespace_name!=\"kube-system\"}",
+            "queryData": []
+          }
+        ],
+        "error": false,
+        "errorMessage": "",
+        "loading": false
+      },
+      "timePreferance": "GLOBAL_TIME",
+      "title": "Memory Utilisation",
+      "yAxisUnit": "bytes"
+    }
+  ]
+}
