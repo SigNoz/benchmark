@@ -553,14 +553,14 @@
             "query": [
                 {
                     "legend": "",
-                    "query": "sum without(cpu) (irate(system_cpu_time{${HOSTNAME_FILTER_COMMA}state!=\"idle\"}[5m])) / sum without(cpu) (irate(system_cpu_time{${HOSTNAME_FILTER}}[5m]))"
+                    "query": "1 - (avg without(cpu) (irate(system_cpu_time{${HOSTNAME_FILTER_COMMA}state=\"idle\"}[5m])))"
                 }
             ],
             "queryData": {
                 "data": [
                     {
                         "legend": "",
-                        "query": "sum without(cpu) (irate(system_cpu_time{${HOSTNAME_FILTER_COMMA}state!=\"idle\"}[5m])) / sum without(cpu) (irate(system_cpu_time{${HOSTNAME_FILTER}}[5m]))",
+                        "query": "1 - (avg without(cpu) (irate(system_cpu_time{${HOSTNAME_FILTER_COMMA}state=\"idle\"}[5m])))",
                         "queryData": []
                     }
                 ],
