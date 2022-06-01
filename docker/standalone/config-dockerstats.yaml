@@ -16,6 +16,17 @@ receivers:
       process:
         mute_process_name_error: true
       processes:
+  docker_stats:
+    endpoint: unix:///var/run/docker.sock
+    collection_interval: 30s
+    timeout: 10s
+    api_version: 1.24
+    container_labels_to_metric_labels:
+      my.container.label: my-metric-label-c
+      my.other.container.label: my-other-metric-label-c
+    env_vars_to_metric_labels:
+      MY_ENVIRONMENT_VARIABLE: my-metric-label-ev
+      MY_OTHER_ENVIRONMENT_VARIABLE: my-other-metric-label-ev
   prometheus:
     config:
       global:
@@ -50,7 +61,7 @@ service:
   extensions: [health_check, zpages]
   pipelines:
     metrics:
-      receivers: [otlp, hostmetrics]
+      receivers: [otlp, docker_stats, hostmetrics]
       processors: [resourcedetection, batch]
       exporters: [otlp]
     metrics/prometheusexporter:
