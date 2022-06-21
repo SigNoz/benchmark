@@ -28,7 +28,7 @@ spec:
                     - amd64
       containers:
         - name: otel-collector
-          image: signoz/otelcontribcol:0.43.0
+          image: signoz/otelcontribcol:0.45.1-0.3
           imagePullPolicy: Always
           command:
           - "/otelcontribcol"

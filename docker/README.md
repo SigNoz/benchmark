@@ -47,10 +47,10 @@ Follow the steps below for OpenTelemetry Collector Binary:
 
 ```bash
 # download linux amd64 deb file
-wget https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.43.0/otelcol-contrib_0.43.0_linux_amd64.deb
+wget https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.45.0/otelcol-contrib_0.45.0_linux_amd64.deb
 
 # install otelcol using dpkg
-sudo dpkg -i otelcol-contrib_0.43.0_linux_amd64.deb
+sudo dpkg -i otelcol-contrib_0.45.0_linux_amd64.deb
 
 # wget standalone config
 wget https://github.com/SigNoz/benchmark/raw/main/docker/standalone/config.yaml
