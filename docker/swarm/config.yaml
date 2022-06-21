@@ -13,9 +13,6 @@ receivers:
       memory:
       network:
       paging:
-      process:
-        mute_process_name_error: true
-      processes:
   prometheus:
     config:
       global:
@@ -26,8 +23,8 @@ receivers:
             - targets: ['localhost:8888']
 processors:
   batch:
-    send_batch_size: 30000
-    timeout: 30s
+    send_batch_size: 1000
+    timeout: 10s
   # Ref: https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/processor/resourcedetectionprocessor/README.md
   resourcedetection:
     detectors: [env] # include ec2 for AWS, gce for GCP and azure for Azure.
