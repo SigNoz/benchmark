@@ -1,5 +1,7 @@
 {
+  "title": "K8s - CPU and Memory Metrics",
   "description": "",
+  "tags": ["k8s", "monitoring"],
   "layout": [
     {
       "h": 2,
@@ -16,8 +18,8 @@
       "moved": false,
       "static": false,
       "w": 6,
-      "x": 0,
-      "y": 2
+      "x": 6,
+      "y": 0
     },
     {
       "h": 2,
@@ -26,7 +28,7 @@
       "static": false,
       "w": 6,
       "x": 0,
-      "y": 6
+      "y": 4
     },
     {
       "h": 2,
@@ -35,7 +37,7 @@
       "static": false,
       "w": 6,
       "x": 6,
-      "y": 2
+      "y": 4
     },
     {
       "h": 2,
@@ -44,7 +46,7 @@
       "static": false,
       "w": 6,
       "x": 0,
-      "y": 4
+      "y": 2
     },
     {
       "h": 2,
@@ -53,14 +55,9 @@
       "static": false,
       "w": 6,
       "x": 6,
-      "y": 0
+      "y": 2
     }
   ],
-  "tags": [
-    "k8s",
-    "monitoring"
-  ],
-  "title": "K8s - CPU and Memory Metrics",
   "widgets": [
     {
       "description": "",
@@ -69,741 +66,42 @@
       "nullZeroValues": "zero",
       "opacity": "1",
       "panelTypes": "TIME_SERIES",
-      "query": [
-        {
-          "legend": "{{k8s_container_name}} in {{k8s_pod_name}}",
-          "query": "k8s_container_cpu_request{k8s_namespace_name!=\"kube-system\"}"
-        }
-      ],
-      "queryData": {
-        "data": [
+      "query": {
+        "clickHouse": [
+          { "disabled": false, "legend": "", "name": "A", "rawQuery": "" }
+        ],
+        "metricsBuilder": {
+          "formulas": [],
+          "queryBuilder": [
+            {
+              "aggregateOperator": 1,
+              "disabled": false,
+              "groupBy": [],
+              "legend": "",
+              "metricName": "",
+              "name": "A",
+              "reduceTo": 1,
+              "tagFilters": { "items": [], "op": "AND" }
+            }
+          ]
+        },
+        "promQL": [
           {
+            "disabled": false,
             "legend": "{{k8s_container_name}} in {{k8s_pod_name}}",
-            "query": "k8s_container_cpu_request{k8s_namespace_name!=\"kube-system\"}",
-            "queryData": [
-              {
-                "metric": {
-                  "__name__": "k8s_container_cpu_request",
-                  "container_id": "00e96613770dfbb165f73c920d3b262838ca1be9f909615dc74c5e5f8d6d708a",
-                  "container_image_name": "signoz/alertmanager",
-                  "container_image_tag": "0.23.0-0.1",
-                  "k8s_cluster_name": "",
-                  "k8s_container_name": "my-release-signoz-alertmanager",
-                  "k8s_namespace_name": "platform",
-                  "k8s_node_name": "ip-192-168-49-120.ec2.internal",
-                  "k8s_pod_name": "my-release-signoz-alertmanager-0",
-                  "k8s_pod_uid": "3fe737a8-cc81-485f-88fd-045dd9f2a841",
-                  "opencensus_resourcetype": "container"
-                },
-                "values": [
-                  [
-                    1654850931.612,
-                    "100"
-                  ],
-                  [
-                    1654850991.612,
-                    "100"
-                  ],
-                  [
-                    1654851051.612,
-                    "100"
-                  ],
-                  [
-                    1654851111.612,
-                    "100"
-                  ],
-                  [
-                    1654851171.612,
-                    "100"
-                  ],
-                  [
-                    1654851231.612,
-                    "100"
-                  ],
-                  [
-                    1654851291.612,
-                    "100"
-                  ],
-                  [
-                    1654851351.612,
-                    "100"
-                  ],
-                  [
-                    1654851411.612,
-                    "100"
-                  ],
-                  [
-                    1654851471.612,
-                    "100"
-                  ],
-                  [
-                    1654851531.612,
-                    "100"
-                  ],
-                  [
-                    1654851591.612,
-                    "100"
-                  ]
-                ]
-              },
-              {
-                "metric": {
-                  "__name__": "k8s_container_cpu_request",
-                  "container_id": "03ee6136722ccf7cc0f3b8e42b0ea8a0c0798133644c5b23fc9c08f8b3908f14",
-                  "container_image_name": "otel/opentelemetry-collector-contrib",
-                  "container_image_tag": "0.43.0",
-                  "k8s_cluster_name": "",
-                  "k8s_container_name": "otel-collector-agent",
-                  "k8s_namespace_name": "signoz-infra-metrics",
-                  "k8s_node_name": "ip-192-168-20-21.ec2.internal",
-                  "k8s_pod_name": "otel-collector-agent-7pwkh",
-                  "k8s_pod_uid": "6b6f9a0d-2800-4d0f-ae7a-ebf4f7c1ace5",
-                  "opencensus_resourcetype": "container"
-                },
-                "values": [
-                  [
-                    1654850931.612,
-                    "200"
-                  ],
-                  [
-                    1654850991.612,
-                    "200"
-                  ],
-                  [
-                    1654851051.612,
-                    "200"
-                  ],
-                  [
-                    1654851111.612,
-                    "200"
-                  ],
-                  [
-                    1654851171.612,
-                    "200"
-                  ],
-                  [
-                    1654851231.612,
-                    "200"
-                  ],
-                  [
-                    1654851291.612,
-                    "200"
-                  ],
-                  [
-                    1654851351.612,
-                    "200"
-                  ],
-                  [
-                    1654851411.612,
-                    "200"
-                  ],
-                  [
-                    1654851471.612,
-                    "200"
-                  ],
-                  [
-                    1654851531.612,
-                    "200"
-                  ],
-                  [
-                    1654851591.612,
-                    "200"
-                  ]
-                ]
-              },
-              {
-                "metric": {
-                  "__name__": "k8s_container_cpu_request",
-                  "container_id": "057a92ca6f336f85c84c3c2c4d34934b9520bc09af664a70f9905855d849022a",
-                  "container_image_name": "otel/opentelemetry-collector-contrib",
-                  "container_image_tag": "0.43.0",
-                  "k8s_cluster_name": "",
-                  "k8s_container_name": "otelcontribcol",
-                  "k8s_namespace_name": "signoz-infra-metrics",
-                  "k8s_node_name": "ip-192-168-22-220.ec2.internal",
-                  "k8s_pod_name": "otelcontribcol-6d45c844c-m9b42",
-                  "k8s_pod_uid": "7065c6b0-58be-4d59-80dc-96974d13af4f",
-                  "opencensus_resourcetype": "container"
-                },
-                "values": [
-                  [
-                    1654850931.612,
-                    "200"
-                  ],
-                  [
-                    1654850991.612,
-                    "200"
-                  ],
-                  [
-                    1654851051.612,
-                    "200"
-                  ],
-                  [
-                    1654851111.612,
-                    "200"
-                  ],
-                  [
-                    1654851171.612,
-                    "200"
-                  ],
-                  [
-                    1654851231.612,
-                    "200"
-                  ],
-                  [
-                    1654851291.612,
-                    "200"
-                  ],
-                  [
-                    1654851351.612,
-                    "200"
-                  ],
-                  [
-                    1654851411.612,
-                    "200"
-                  ],
-                  [
-                    1654851471.612,
-                    "200"
-                  ],
-                  [
-                    1654851531.612,
-                    "200"
-                  ],
-                  [
-                    1654851591.612,
-                    "200"
-                  ]
-                ]
-              },
-              {
-                "metric": {
-                  "__name__": "k8s_container_cpu_request",
-                  "container_id": "2290ee6ee26f1da7c42351a094a5f6d14b6da87e4be206881b3912c5b611d892",
-                  "container_image_name": "signoz/query-service",
-                  "container_image_tag": "0.8.1",
-                  "k8s_cluster_name": "",
-                  "k8s_container_name": "my-release-signoz-query-service",
-                  "k8s_namespace_name": "platform",
-                  "k8s_node_name": "ip-192-168-20-21.ec2.internal",
-                  "k8s_pod_name": "my-release-signoz-query-service-0",
-                  "k8s_pod_uid": "61637783-c388-4462-9f72-4de06cd89362",
-                  "opencensus_resourcetype": "container"
-                },
-                "values": [
-                  [
-                    1654850931.612,
-                    "200"
-                  ],
-                  [
-                    1654850991.612,
-                    "200"
-                  ],
-                  [
-                    1654851051.612,
-                    "200"
-                  ],
-                  [
-                    1654851111.612,
-                    "200"
-                  ],
-                  [
-                    1654851171.612,
-                    "200"
-                  ],
-                  [
-                    1654851231.612,
-                    "200"
-                  ],
-                  [
-                    1654851291.612,
-                    "200"
-                  ]
-                ]
-              },
-              {
-                "metric": {
-                  "__name__": "k8s_container_cpu_request",
-                  "container_id": "243303b70a0feda5cf34dce4bec875e269a5b19c21b281b5fd0a73492f150d93",
-                  "container_image_name": "signoz/otelcontribcol",
-                  "container_image_tag": "0.45.1-0.2",
-                  "k8s_cluster_name": "",
-                  "k8s_container_name": "my-release-signoz-otel-collector",
-                  "k8s_namespace_name": "platform",
-                  "k8s_node_name": "ip-192-168-22-220.ec2.internal",
-                  "k8s_pod_name": "my-release-signoz-otel-collector-667774d66c-4txlx",
-                  "k8s_pod_uid": "3567b9e3-0d74-41f9-bef9-b833a298e7ee",
-                  "opencensus_resourcetype": "container"
-                },
-                "values": [
-                  [
-                    1654850931.612,
-                    "200"
-                  ],
-                  [
-                    1654850991.612,
-                    "200"
-                  ],
-                  [
-                    1654851051.612,
-                    "200"
-                  ],
-                  [
-                    1654851111.612,
-                    "200"
-                  ],
-                  [
-                    1654851171.612,
-                    "200"
-                  ],
-                  [
-                    1654851231.612,
-                    "200"
-                  ],
-                  [
-                    1654851291.612,
-                    "200"
-                  ],
-                  [
-                    1654851351.612,
-                    "200"
-                  ],
-                  [
-                    1654851411.612,
-                    "200"
-                  ],
-                  [
-                    1654851471.612,
-                    "200"
-                  ],
-                  [
-                    1654851531.612,
-                    "200"
-                  ],
-                  [
-                    1654851591.612,
-                    "200"
-                  ]
-                ]
-              },
-              {
-                "metric": {
-                  "__name__": "k8s_container_cpu_request",
-                  "container_id": "381450a858bfc432b305e67e1e2edbf594019758bba35496c27c72cdf01b8d3a",
-                  "container_image_name": "signoz/query-service",
-                  "container_image_tag": "0.8.1",
-                  "k8s_cluster_name": "",
-                  "k8s_container_name": "my-release-signoz-query-service",
-                  "k8s_namespace_name": "platform",
-                  "k8s_node_name": "ip-192-168-20-21.ec2.internal",
-                  "k8s_pod_name": "my-release-signoz-query-service-0",
-                  "k8s_pod_uid": "bc9f408b-5127-4beb-b388-6ba7bfd7f496",
-                  "opencensus_resourcetype": "container"
-                },
-                "values": [
-                  [
-                    1654851411.612,
-                    "200"
-                  ],
-                  [
-                    1654851471.612,
-                    "200"
-                  ],
-                  [
-                    1654851531.612,
-                    "200"
-                  ],
-                  [
-                    1654851591.612,
-                    "200"
-                  ]
-                ]
-              },
-              {
-                "metric": {
-                  "__name__": "k8s_container_cpu_request",
-                  "container_id": "3cafe76530da61733c12049b8b12ef68470d21e59e9c4d6c648504c70187b4be",
-                  "container_image_name": "bitnami/zookeeper",
-                  "container_image_tag": "3.7.0-debian-10-r70",
-                  "k8s_cluster_name": "",
-                  "k8s_container_name": "zookeeper",
-                  "k8s_namespace_name": "platform",
-                  "k8s_node_name": "ip-192-168-49-120.ec2.internal",
-                  "k8s_pod_name": "my-release-zookeeper-0",
-                  "k8s_pod_uid": "10320ecb-b0e2-4be4-8a89-2e33dfccd186",
-                  "opencensus_resourcetype": "container"
-                },
-                "values": [
-                  [
-                    1654850931.612,
-                    "250"
-                  ],
-                  [
-                    1654850991.612,
-                    "250"
-                  ],
-                  [
-                    1654851051.612,
-                    "250"
-                  ],
-                  [
-                    1654851111.612,
-                    "250"
-                  ],
-                  [
-                    1654851171.612,
-                    "250"
-                  ],
-                  [
-                    1654851231.612,
-                    "250"
-                  ],
-                  [
-                    1654851291.612,
-                    "250"
-                  ],
-                  [
-                    1654851351.612,
-                    "250"
-                  ],
-                  [
-                    1654851411.612,
-                    "250"
-                  ],
-                  [
-                    1654851471.612,
-                    "250"
-                  ],
-                  [
-                    1654851531.612,
-                    "250"
-                  ],
-                  [
-                    1654851591.612,
-                    "250"
-                  ]
-                ]
-              },
-              {
-                "metric": {
-                  "__name__": "k8s_container_cpu_request",
-                  "container_id": "a146026b1ee6f26ef0d246f6d8056798ad125f5126ce53fd30ef909cffc15b30",
-                  "container_image_name": "signoz/otelcontribcol",
-                  "container_image_tag": "0.45.1-0.2",
-                  "k8s_cluster_name": "",
-                  "k8s_container_name": "my-release-signoz-otel-collector-metrics",
-                  "k8s_namespace_name": "platform",
-                  "k8s_node_name": "ip-192-168-22-220.ec2.internal",
-                  "k8s_pod_name": "my-release-signoz-otel-collector-metrics-76674d95d-klfw7",
-                  "k8s_pod_uid": "400cba50-ffc5-4c21-8c61-2a5216d6dab0",
-                  "opencensus_resourcetype": "container"
-                },
-                "values": [
-                  [
-                    1654850931.612,
-                    "200"
-                  ],
-                  [
-                    1654850991.612,
-                    "200"
-                  ],
-                  [
-                    1654851051.612,
-                    "200"
-                  ],
-                  [
-                    1654851111.612,
-                    "200"
-                  ],
-                  [
-                    1654851171.612,
-                    "200"
-                  ],
-                  [
-                    1654851231.612,
-                    "200"
-                  ],
-                  [
-                    1654851291.612,
-                    "200"
-                  ],
-                  [
-                    1654851351.612,
-                    "200"
-                  ],
-                  [
-                    1654851411.612,
-                    "200"
-                  ],
-                  [
-                    1654851471.612,
-                    "200"
-                  ],
-                  [
-                    1654851531.612,
-                    "200"
-                  ],
-                  [
-                    1654851591.612,
-                    "200"
-                  ]
-                ]
-              },
-              {
-                "metric": {
-                  "__name__": "k8s_container_cpu_request",
-                  "container_id": "b24b63535dcccf9c4a90fc6e9fd60af753498074cbf41b555efdd9bf91851a0f",
-                  "container_image_name": "signoz/frontend",
-                  "container_image_tag": "0.8.1",
-                  "k8s_cluster_name": "",
-                  "k8s_container_name": "my-release-signoz-frontend",
-                  "k8s_namespace_name": "platform",
-                  "k8s_node_name": "ip-192-168-20-21.ec2.internal",
-                  "k8s_pod_name": "my-release-signoz-frontend-69b9687d4c-w6gq4",
-                  "k8s_pod_uid": "85de7187-0cb6-4e3f-a461-3de4037bd512",
-                  "opencensus_resourcetype": "container"
-                },
-                "values": [
-                  [
-                    1654850931.612,
-                    "100"
-                  ],
-                  [
-                    1654850991.612,
-                    "100"
-                  ],
-                  [
-                    1654851051.612,
-                    "100"
-                  ],
-                  [
-                    1654851111.612,
-                    "100"
-                  ],
-                  [
-                    1654851171.612,
-                    "100"
-                  ],
-                  [
-                    1654851231.612,
-                    "100"
-                  ],
-                  [
-                    1654851291.612,
-                    "100"
-                  ],
-                  [
-                    1654851351.612,
-                    "100"
-                  ],
-                  [
-                    1654851411.612,
-                    "100"
-                  ],
-                  [
-                    1654851471.612,
-                    "100"
-                  ],
-                  [
-                    1654851531.612,
-                    "100"
-                  ],
-                  [
-                    1654851591.612,
-                    "100"
-                  ]
-                ]
-              },
-              {
-                "metric": {
-                  "__name__": "k8s_container_cpu_request",
-                  "container_id": "b87e2a9ce72aa691ebb910d0942f944330b97fc62b3a0ce30615cc8d35799265",
-                  "container_image_name": "otel/opentelemetry-collector-contrib",
-                  "container_image_tag": "0.43.0",
-                  "k8s_cluster_name": "",
-                  "k8s_container_name": "otel-collector-agent",
-                  "k8s_namespace_name": "signoz-infra-metrics",
-                  "k8s_node_name": "ip-192-168-49-120.ec2.internal",
-                  "k8s_pod_name": "otel-collector-agent-747n2",
-                  "k8s_pod_uid": "d6dc6b15-c6ec-4663-9873-3d11ac591050",
-                  "opencensus_resourcetype": "container"
-                },
-                "values": [
-                  [
-                    1654850931.612,
-                    "200"
-                  ],
-                  [
-                    1654850991.612,
-                    "200"
-                  ],
-                  [
-                    1654851051.612,
-                    "200"
-                  ],
-                  [
-                    1654851111.612,
-                    "200"
-                  ],
-                  [
-                    1654851171.612,
-                    "200"
-                  ],
-                  [
-                    1654851231.612,
-                    "200"
-                  ],
-                  [
-                    1654851291.612,
-                    "200"
-                  ],
-                  [
-                    1654851351.612,
-                    "200"
-                  ],
-                  [
-                    1654851411.612,
-                    "200"
-                  ],
-                  [
-                    1654851471.612,
-                    "200"
-                  ],
-                  [
-                    1654851531.612,
-                    "200"
-                  ],
-                  [
-                    1654851591.612,
-                    "200"
-                  ]
-                ]
-              },
-              {
-                "metric": {
-                  "__name__": "k8s_container_cpu_request",
-                  "container_id": "f11e63a2b8d9189a09a1e823df2594a589bbb5ab8a9dce3c58628e9f16eeca0a",
-                  "container_image_name": "otel/opentelemetry-collector-contrib",
-                  "container_image_tag": "0.43.0",
-                  "k8s_cluster_name": "",
-                  "k8s_container_name": "otel-collector-agent",
-                  "k8s_namespace_name": "signoz-infra-metrics",
-                  "k8s_node_name": "ip-192-168-22-220.ec2.internal",
-                  "k8s_pod_name": "otel-collector-agent-tfknk",
-                  "k8s_pod_uid": "31be4607-4b41-4ab4-b5e7-b3b449b2c89c",
-                  "opencensus_resourcetype": "container"
-                },
-                "values": [
-                  [
-                    1654850931.612,
-                    "200"
-                  ],
-                  [
-                    1654850991.612,
-                    "200"
-                  ],
-                  [
-                    1654851051.612,
-                    "200"
-                  ],
-                  [
-                    1654851111.612,
-                    "200"
-                  ],
-                  [
-                    1654851171.612,
-                    "200"
-                  ],
-                  [
-                    1654851231.612,
-                    "200"
-                  ],
-                  [
-                    1654851291.612,
-                    "200"
-                  ],
-                  [
-                    1654851351.612,
-                    "200"
-                  ],
-                  [
-                    1654851411.612,
-                    "200"
-                  ],
-                  [
-                    1654851471.612,
-                    "200"
-                  ],
-                  [
-                    1654851531.612,
-                    "200"
-                  ],
-                  [
-                    1654851591.612,
-                    "200"
-                  ]
-                ]
-              },
-              {
-                "metric": {
-                  "__name__": "k8s_container_cpu_request",
-                  "container_id": "fbd3e0e3c6b85d77a6214dd97c1acba237a43c147428982a3c0290c988191d22",
-                  "container_image_name": "signoz/query-service",
-                  "container_image_tag": "0.8.1",
-                  "k8s_cluster_name": "",
-                  "k8s_container_name": "my-release-signoz-query-service",
-                  "k8s_namespace_name": "platform",
-                  "k8s_node_name": "ip-192-168-20-21.ec2.internal",
-                  "k8s_pod_name": "my-release-signoz-query-service-0",
-                  "k8s_pod_uid": "9a7fa424-baae-45c0-a656-df3ca1215831",
-                  "opencensus_resourcetype": "container"
-                },
-                "values": [
-                  [
-                    1654851111.612,
-                    "200"
-                  ],
-                  [
-                    1654851171.612,
-                    "200"
-                  ],
-                  [
-                    1654851231.612,
-                    "200"
-                  ],
-                  [
-                    1654851291.612,
-                    "200"
-                  ],
-                  [
-                    1654851351.612,
-                    "200"
-                  ],
-                  [
-                    1654851411.612,
-                    "200"
-                  ],
-                  [
-                    1654851471.612,
-                    "200"
-                  ],
-                  [
-                    1654851531.612,
-                    "200"
-                  ],
-                  [
-                    1654851591.612,
-                    "200"
-                  ]
-                ]
-              }
-            ]
+            "name": "A",
+            "query": "k8s_container_cpu_request{k8s_namespace_name!=\"kube-system\"}"
           }
         ],
+        "queryType": 3
+      },
+      "queryData": {
+        "data": { "legend": "", "query": "", "queryData": [] },
         "error": false,
         "errorMessage": "",
         "loading": false
       },
+      "queryType": 3,
       "timePreferance": "GLOBAL_TIME",
       "title": "CPU Requests",
       "yAxisUnit": "none"
@@ -815,24 +113,42 @@
       "nullZeroValues": "zero",
       "opacity": "1",
       "panelTypes": "TIME_SERIES",
-      "query": [
-        {
-          "legend": "{{k8s_container_name}} in {{k8s_pod_name}}",
-          "query": "k8s_container_cpu_limit{k8s_namespace_name!=\"kube-system\"}"
-        }
-      ],
-      "queryData": {
-        "data": [
+      "query": {
+        "clickHouse": [
+          { "disabled": false, "legend": "", "name": "A", "rawQuery": "" }
+        ],
+        "metricsBuilder": {
+          "formulas": [],
+          "queryBuilder": [
+            {
+              "aggregateOperator": 1,
+              "disabled": false,
+              "groupBy": [],
+              "legend": "",
+              "metricName": "",
+              "name": "A",
+              "reduceTo": 1,
+              "tagFilters": { "items": [], "op": "AND" }
+            }
+          ]
+        },
+        "promQL": [
           {
+            "disabled": false,
             "legend": "{{k8s_container_name}} in {{k8s_pod_name}}",
-            "query": "k8s_container_cpu_limit{k8s_namespace_name!=\"kube-system\"}",
-            "queryData": []
+            "name": "A",
+            "query": "k8s_container_cpu_limit{k8s_namespace_name!=\"kube-system\"}"
           }
         ],
+        "queryType": 3
+      },
+      "queryData": {
+        "data": { "legend": "", "query": "", "queryData": [] },
         "error": false,
         "errorMessage": "",
         "loading": false
       },
+      "queryType": 3,
       "timePreferance": "GLOBAL_TIME",
       "title": "CPU Limits",
       "yAxisUnit": "none"
@@ -844,24 +160,42 @@
       "nullZeroValues": "zero",
       "opacity": "1",
       "panelTypes": "TIME_SERIES",
-      "query": [
-        {
-          "legend": "{{k8s_container_name}} in {{k8s_pod_name}}",
-          "query": "k8s_container_memory_limit{k8s_namespace_name!=\"kube-system\"}"
-        }
-      ],
-      "queryData": {
-        "data": [
+      "query": {
+        "clickHouse": [
+          { "disabled": false, "legend": "", "name": "A", "rawQuery": "" }
+        ],
+        "metricsBuilder": {
+          "formulas": [],
+          "queryBuilder": [
+            {
+              "aggregateOperator": 1,
+              "disabled": false,
+              "groupBy": [],
+              "legend": "",
+              "metricName": "",
+              "name": "A",
+              "reduceTo": 1,
+              "tagFilters": { "items": [], "op": "AND" }
+            }
+          ]
+        },
+        "promQL": [
           {
+            "disabled": false,
             "legend": "{{k8s_container_name}} in {{k8s_pod_name}}",
-            "query": "k8s_container_memory_limit{k8s_namespace_name!=\"kube-system\"}",
-            "queryData": []
+            "name": "A",
+            "query": "k8s_container_memory_limit{k8s_namespace_name!=\"kube-system\"}"
           }
         ],
+        "queryType": 3
+      },
+      "queryData": {
+        "data": { "legend": "", "query": "", "queryData": [] },
         "error": false,
         "errorMessage": "",
         "loading": false
       },
+      "queryType": 3,
       "timePreferance": "GLOBAL_TIME",
       "title": "Memory Limits",
       "yAxisUnit": "bytes"
@@ -873,24 +207,42 @@
       "nullZeroValues": "zero",
       "opacity": "1",
       "panelTypes": "TIME_SERIES",
-      "query": [
-        {
-          "legend": "{{k8s_container_name}} in {{k8s_pod_name}}",
-          "query": "k8s_container_memory_request{k8s_namespace_name!=\"kube-system\"}"
-        }
-      ],
-      "queryData": {
-        "data": [
+      "query": {
+        "clickHouse": [
+          { "disabled": false, "legend": "", "name": "A", "rawQuery": "" }
+        ],
+        "metricsBuilder": {
+          "formulas": [],
+          "queryBuilder": [
+            {
+              "aggregateOperator": 1,
+              "disabled": false,
+              "groupBy": [],
+              "legend": "",
+              "metricName": "",
+              "name": "A",
+              "reduceTo": 1,
+              "tagFilters": { "items": [], "op": "AND" }
+            }
+          ]
+        },
+        "promQL": [
           {
+            "disabled": false,
             "legend": "{{k8s_container_name}} in {{k8s_pod_name}}",
-            "query": "k8s_container_memory_request{k8s_namespace_name!=\"kube-system\"}",
-            "queryData": []
+            "name": "A",
+            "query": "k8s_container_memory_request{k8s_namespace_name!=\"kube-system\"}"
           }
         ],
+        "queryType": 3
+      },
+      "queryData": {
+        "data": { "legend": "", "query": "", "queryData": [] },
         "error": false,
         "errorMessage": "",
         "loading": false
       },
+      "queryType": 3,
       "timePreferance": "GLOBAL_TIME",
       "title": "Memory Requests",
       "yAxisUnit": "bytes"
@@ -902,24 +254,42 @@
       "nullZeroValues": "zero",
       "opacity": "1",
       "panelTypes": "TIME_SERIES",
-      "query": [
-        {
-          "legend": "{{k8s_container_name}} in {{k8s_pod_name}}",
-          "query": "sum(rate(container_cpu_utilization{k8s_namespace_name!=\"kube-system\"}[5m])) by (k8s_container_name,k8s_pod_name)"
-        }
-      ],
-      "queryData": {
-        "data": [
+      "query": {
+        "clickHouse": [
+          { "disabled": false, "legend": "", "name": "A", "rawQuery": "" }
+        ],
+        "metricsBuilder": {
+          "formulas": [],
+          "queryBuilder": [
+            {
+              "aggregateOperator": 1,
+              "disabled": false,
+              "groupBy": [],
+              "legend": "",
+              "metricName": "",
+              "name": "A",
+              "reduceTo": 1,
+              "tagFilters": { "items": [], "op": "AND" }
+            }
+          ]
+        },
+        "promQL": [
           {
+            "disabled": false,
             "legend": "{{k8s_container_name}} in {{k8s_pod_name}}",
-            "query": "sum(rate(container_cpu_utilization{k8s_namespace_name!=\"kube-system\"}[5m])) by (k8s_container_name,k8s_pod_name)",
-            "queryData": []
+            "name": "A",
+            "query": "sum(rate(container_cpu_utilization{k8s_namespace_name!=\"kube-system\"}[5m])) by (k8s_container_name,k8s_pod_name)"
           }
         ],
+        "queryType": 3
+      },
+      "queryData": {
+        "data": { "legend": "", "query": "", "queryData": [] },
         "error": false,
         "errorMessage": "",
         "loading": false
       },
+      "queryType": 3,
       "timePreferance": "GLOBAL_TIME",
       "title": "CPU Utilisation",
       "yAxisUnit": "none"
@@ -931,24 +301,42 @@
       "nullZeroValues": "zero",
       "opacity": "1",
       "panelTypes": "TIME_SERIES",
-      "query": [
-        {
-          "legend": "{{k8s_container_name}} in {{k8s_pod_name}}",
-          "query": "container_memory_usage{k8s_namespace_name!=\"kube-system\"}"
-        }
-      ],
-      "queryData": {
-        "data": [
+      "query": {
+        "clickHouse": [
+          { "disabled": false, "legend": "", "name": "A", "rawQuery": "" }
+        ],
+        "metricsBuilder": {
+          "formulas": [],
+          "queryBuilder": [
+            {
+              "aggregateOperator": 1,
+              "disabled": false,
+              "groupBy": [],
+              "legend": "",
+              "metricName": "",
+              "name": "A",
+              "reduceTo": 1,
+              "tagFilters": { "items": [], "op": "AND" }
+            }
+          ]
+        },
+        "promQL": [
           {
+            "disabled": false,
             "legend": "{{k8s_container_name}} in {{k8s_pod_name}}",
-            "query": "container_memory_usage{k8s_namespace_name!=\"kube-system\"}",
-            "queryData": []
+            "name": "A",
+            "query": "container_memory_usage{k8s_namespace_name!=\"kube-system\"}"
           }
         ],
+        "queryType": 3
+      },
+      "queryData": {
+        "data": { "legend": "", "query": "", "queryData": [] },
         "error": false,
         "errorMessage": "",
         "loading": false
       },
+      "queryType": 3,
       "timePreferance": "GLOBAL_TIME",
       "title": "Memory Utilisation",
       "yAxisUnit": "bytes"

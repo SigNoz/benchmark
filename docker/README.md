@@ -47,10 +47,10 @@ Follow the steps below for OpenTelemetry Collector Binary:
 
 ```bash
 # download linux amd64 deb file
-wget https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.43.0/otelcol-contrib_0.43.0_linux_amd64.deb
+wget https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.45.0/otelcol-contrib_0.45.0_linux_amd64.deb
 
 # install otelcol using dpkg
-sudo dpkg -i otelcol-contrib_0.43.0_linux_amd64.deb
+sudo dpkg -i otelcol-contrib_0.45.0_linux_amd64.deb
 
 # wget standalone config
 wget https://github.com/SigNoz/benchmark/raw/main/docker/standalone/config.yaml
@@ -61,11 +61,14 @@ vim config.yaml
 # copy the config yaml to otelcol-contrib config folder
 sudo cp config.yaml /etc/otelcol-contrib/config.yaml
 
+# (optional) in case of dockerstats
+sudo usermod -aG docker otelcol-contrib
+
 # restart otel with updated config
-sudo systemctl restart otelcol
+sudo systemctl restart otelcol-contrib.service
 
 # view logs
-sudo journalctl -u otelcol
+sudo journalctl -u otelcol-contrib.service
 ```
 
 ### Docker Standalone
@@ -107,15 +110,18 @@ docker stack deploy -c docker-compose.swarm.yaml hostmetrics
 ### List of Metrics from HostMetrics Receiver
 
 ```console
-system_cpu_time
+system_cpu_load_average_15m
 system_cpu_load_average_1m
 system_cpu_load_average_5m
-system_cpu_load_average_15m
+system_cpu_time
 system_disk_io
 system_disk_io_time
-system_disk_operations
+system_disk_merged
 system_disk_operation_time
+system_disk_operations
 system_disk_pending_operations
+system_disk_weighted_io_time
+system_filesystem_inodes_usage
 system_filesystem_usage
 system_memory_usage
 system_network_connections

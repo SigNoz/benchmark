@@ -1,7 +1,7 @@
 {
-  "title": "HostMetrics Dashboard - SigNoz",
+  "title": "HostMetrics Dashboard - kind-control-plane",
   "description": "",
-  "tags": ["hostmetrics","signoz"],
+  "tags": ["hostmetrics","k8s","kind"],
   "layout": [
     {
       "h": 2,
@@ -261,7 +261,7 @@
             "disabled": false,
             "legend": "{{state}}",
             "name": "A",
-            "query": "system_memory_usage{host_name=\"\",state=~\"buffered|cached|free|used\"}"
+            "query": "system_memory_usage{host_name=\"kind-control-plane\",state=~\"buffered|cached|free|used\"}"
           }
         ],
         "queryType": 3
@@ -308,7 +308,7 @@
             "disabled": false,
             "legend": "{{state}}",
             "name": "A",
-            "query": "avg by(state) (irate(system_cpu_time{host_name=\"\",state!=\"idle\"}[5m]))"
+            "query": "avg by(state) (irate(system_cpu_time{host_name=\"kind-control-plane\",state!=\"idle\"}[5m]))"
           }
         ],
         "queryType": 3
@@ -355,7 +355,7 @@
             "disabled": false,
             "legend": "{{device}}",
             "name": "A",
-            "query": "system_filesystem_usage{host_name=\"\",state=\"used\",device!~\"/dev/loop.*\", device!~\"tmpfs|nsfs\"}"
+            "query": "system_filesystem_usage{host_name=\"kind-control-plane\",state=\"used\",device!~\"/dev/loop.*\", device!~\"tmpfs|nsfs\"}"
           }
         ],
         "queryType": 3
@@ -402,7 +402,7 @@
             "disabled": false,
             "legend": "{{device}}",
             "name": "A",
-            "query": "system_filesystem_usage{host_name=\"\",state=\"free\",device!~\"/dev/loop.*\", device!~\"tmpfs | nsfs\"}"
+            "query": "system_filesystem_usage{host_name=\"kind-control-plane\",state=\"free\",device!~\"/dev/loop.*\", device!~\"tmpfs | nsfs\"}"
           }
         ],
         "queryType": 3
@@ -449,7 +449,7 @@
             "disabled": false,
             "legend": "{{state}}",
             "name": "A",
-            "query": "avg by(state) (irate(system_cpu_time{host_name=\"\",state=\"idle\"}[5m]))"
+            "query": "avg by(state) (irate(system_cpu_time{host_name=\"kind-control-plane\",state=\"idle\"}[5m]))"
           }
         ],
         "queryType": 3
@@ -496,7 +496,7 @@
             "disabled": false,
             "legend": "{{direction}}",
             "name": "A",
-            "query": "avg by(direction) (irate(system_network_io{host_name=\"\"}[5m]))"
+            "query": "avg by(direction) (irate(system_network_io{host_name=\"kind-control-plane\"}[5m]))"
           }
         ],
         "queryType": 3
@@ -543,7 +543,7 @@
             "disabled": false,
             "legend": "{{device}}-{{direction}}",
             "name": "A",
-            "query": "irate(system_network_io{host_name=\"\"}[5m])"
+            "query": "irate(system_network_io{host_name=\"kind-control-plane\"}[5m])"
           }
         ],
         "queryType": 3
@@ -590,7 +590,7 @@
             "disabled": false,
             "legend": "{{device}}-{{direction}}",
             "name": "A",
-            "query": "irate(system_disk_io{host_name=\"\",device!~\"loop.*\", device!~\"tmpfs | nsfs\"}[5m])"
+            "query": "irate(system_disk_io{host_name=\"kind-control-plane\",device!~\"loop.*\", device!~\"tmpfs | nsfs\"}[5m])"
           }
         ],
         "queryType": 3
@@ -637,7 +637,7 @@
             "disabled": false,
             "legend": "{{direction}}",
             "name": "A",
-            "query": "avg by(direction) (irate(system_disk_io{host_name=\"\",device!~\"loop.*\", device!~\"tmpfs|nsfs\"}[5m]))"
+            "query": "avg by(direction) (irate(system_disk_io{host_name=\"kind-control-plane\",device!~\"loop.*\", device!~\"tmpfs|nsfs\"}[5m]))"
           }
         ],
         "queryType": 3
@@ -684,19 +684,19 @@
             "disabled": false,
             "legend": "1m-average",
             "name": "A",
-            "query": "system_cpu_load_average_1m{host_name=\"\"}"
+            "query": "system_cpu_load_average_1m{host_name=\"kind-control-plane\"}"
           },
           {
             "disabled": false,
             "legend": "5m-average",
             "name": "B",
-            "query": "system_cpu_load_average_5m{host_name=\"\"}"
+            "query": "system_cpu_load_average_5m{host_name=\"kind-control-plane\"}"
           },
           {
             "disabled": false,
             "legend": "15m-average",
             "name": "C",
-            "query": "system_cpu_load_average_15m{host_name=\"\"}"
+            "query": "system_cpu_load_average_15m{host_name=\"kind-control-plane\"}"
           }
         ],
         "queryType": 3
@@ -743,7 +743,7 @@
             "disabled": false,
             "legend": "{{device}}-{{state}}",
             "name": "A",
-            "query": "system_filesystem_usage{host_name=\"\",device!~\"/dev/loop.*\", device!~\"tmpfs | nsfs\"}"
+            "query": "system_filesystem_usage{host_name=\"kind-control-plane\",device!~\"/dev/loop.*\", device!~\"tmpfs | nsfs\"}"
           }
         ],
         "queryType": 3
@@ -790,7 +790,7 @@
             "disabled": false,
             "legend": "{{state}}",
             "name": "A",
-            "query": "sum by(state) (system_filesystem_usage{host_name=\"\",device!~\"/dev/loop.*\", device!~\"tmpfs | nsfs\"})"
+            "query": "sum by(state) (system_filesystem_usage{host_name=\"kind-control-plane\",device!~\"/dev/loop.*\", device!~\"tmpfs | nsfs\"})"
           }
         ],
         "queryType": 3
@@ -837,7 +837,7 @@
             "disabled": false,
             "legend": "{{direction}}",
             "name": "A",
-            "query": "avg by(direction) (irate(system_disk_operations{host_name=\"\",device!~\"loop.*\",device!~\"tmpfs|nsfs\"}[5m]))"
+            "query": "avg by(direction) (irate(system_disk_operations{host_name=\"kind-control-plane\",device!~\"loop.*\",device!~\"tmpfs|nsfs\"}[5m]))"
           }
         ],
         "queryType": 3
@@ -884,7 +884,7 @@
             "disabled": false,
             "legend": "",
             "name": "A",
-            "query": "up{host_name=\"\"}"
+            "query": "up{host_name=\"kind-control-plane\"}"
           }
         ],
         "queryType": 3
@@ -931,7 +931,7 @@
             "disabled": false,
             "legend": "{{device}}",
             "name": "A",
-            "query": "irate(system_disk_weighted_io_time{host_name=\"\",device!~\"loop.*\", device!~\"tmpfs|nsfs\"}[5m])"
+            "query": "irate(system_disk_weighted_io_time{host_name=\"kind-control-plane\",device!~\"loop.*\", device!~\"tmpfs|nsfs\"}[5m])"
           }
         ],
         "queryType": 3
@@ -978,7 +978,7 @@
             "disabled": false,
             "legend": "",
             "name": "A",
-            "query": "sum by(host_name) (system_filesystem_usage{host_name=\"\",state=\"used\",device!~\"/dev/loop.*\", device!~\"tmpfs|nsfs\"}) / sum by(host_name) (system_filesystem_usage{host_name=\"\",device!~\"/dev/loop.*\", device!~\"tmpfs|nsfs\"})"
+            "query": "sum by(host_name) (system_filesystem_usage{host_name=\"kind-control-plane\",state=\"used\",device!~\"/dev/loop.*\", device!~\"tmpfs|nsfs\"}) / sum by(host_name) (system_filesystem_usage{host_name=\"kind-control-plane\",device!~\"/dev/loop.*\", device!~\"tmpfs|nsfs\"})"
           }
         ],
         "queryType": 3
@@ -1072,7 +1072,7 @@
             "disabled": false,
             "legend": "",
             "name": "A",
-            "query": "sum by(host_name) (system_memory_usage{host_name=\"\",state=\"used\"}) / sum by(host_name) (system_memory_usage{host_name=\"\"})"
+            "query": "sum by(host_name) (system_memory_usage{host_name=\"kind-control-plane\",state=\"used\"}) / sum by(host_name) (system_memory_usage{host_name=\"kind-control-plane\"})"
           }
         ],
         "queryType": 3
@@ -1119,7 +1119,7 @@
             "disabled": false,
             "legend": "",
             "name": "A",
-            "query": "1 - (avg by(host_name) (irate(system_cpu_time{host_name=\"\",state=\"idle\"}[5m])))"
+            "query": "1 - (avg by(host_name) (irate(system_cpu_time{host_name=\"kind-control-plane\",state=\"idle\"}[5m])))"
           }
         ],
         "queryType": 3
@@ -1166,7 +1166,7 @@
             "disabled": false,
             "legend": "",
             "name": "A",
-            "query": "avg by(host_name) (irate(system_disk_io{host_name=\"\",direction=\"read\",device!~\"loop.*\", device!~\"tmpfs|nsfs\"}[5m]))"
+            "query": "avg by(host_name) (irate(system_disk_io{host_name=\"kind-control-plane\",direction=\"read\",device!~\"loop.*\", device!~\"tmpfs|nsfs\"}[5m]))"
           }
         ],
         "queryType": 3
@@ -1213,7 +1213,7 @@
             "disabled": false,
             "legend": "",
             "name": "A",
-            "query": "avg by(host_name) (irate(system_disk_io{host_name=\"\", direction=\"write\", device!~\"loop.*\", device!~\"tmpfs|nsfs\"}[5m]))"
+            "query": "avg by(host_name) (irate(system_disk_io{host_name=\"kind-control-plane\", direction=\"write\", device!~\"loop.*\", device!~\"tmpfs|nsfs\"}[5m]))"
           }
         ],
         "queryType": 3
@@ -1260,7 +1260,7 @@
             "disabled": false,
             "legend": "{{state}}",
             "name": "A",
-            "query": "sum by(host_name) (system_filesystem_inodes_usage{host_name=\"\",device!~\"/dev/loop.*\",device!~\"tmpfs|nsfs\"})"
+            "query": "sum by(host_name) (system_filesystem_inodes_usage{host_name=\"kind-control-plane\",device!~\"/dev/loop.*\",device!~\"tmpfs|nsfs\"})"
           }
         ],
         "queryType": 3
@@ -1307,7 +1307,7 @@
             "disabled": false,
             "legend": "{{device}}-{{state}}",
             "name": "A",
-            "query": "system_filesystem_inodes_usage{host_name=\"\",device!~\"/dev/loop.*\",device!~\"tmpfs|nsfs\"}"
+            "query": "system_filesystem_inodes_usage{host_name=\"kind-control-plane\",device!~\"/dev/loop.*\",device!~\"tmpfs|nsfs\"}"
           }
         ],
         "queryType": 3
@@ -1354,7 +1354,7 @@
             "disabled": false,
             "legend": "",
             "name": "A",
-            "query": "sum by(host_name) (system_filesystem_inodes_usage{host_name=\"\",state=\"used\",device!~\"/dev/loop.*\",device!~\"tmpfs|nsfs\"}) / sum by(host_name) (system_filesystem_inodes_usage{host_name=\"\",device!~\"/dev/loop.*\",device!~\"tmpfs|nsfs\"})"
+            "query": "sum by(host_name) (system_filesystem_inodes_usage{host_name=\"kind-control-plane\",state=\"used\",device!~\"/dev/loop.*\",device!~\"tmpfs|nsfs\"}) / sum by(host_name) (system_filesystem_inodes_usage{host_name=\"kind-control-plane\",device!~\"/dev/loop.*\",device!~\"tmpfs|nsfs\"})"
           }
         ],
         "queryType": 3
@@ -1401,7 +1401,7 @@
             "disabled": false,
             "legend": "{{device}}-{{direction}}",
             "name": "A",
-            "query": "irate(system_disk_operations{host_name=\"\",device!~\"loop.*\",device!~\"tmpfs|nsfs\"}[5m])"
+            "query": "irate(system_disk_operations{host_name=\"kind-control-plane\",device!~\"loop.*\",device!~\"tmpfs|nsfs\"}[5m])"
           }
         ],
         "queryType": 3
