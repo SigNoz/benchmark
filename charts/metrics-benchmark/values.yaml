@@ -2,9 +2,9 @@
 ## for vmagent deployment
 vmagent:
   image:
-    repository: signoz/otelcontribcol
+    repository: signoz/signoz-otel-collector
     pullPolicy: IfNotPresent
-    tag: "0.43.0"
+    tag: "0.55.0"
 
   ## targetsCount defines how many copies of nodeexporter
   ## to add as scrape targets.

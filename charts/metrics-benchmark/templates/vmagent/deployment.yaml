@@ -21,7 +21,7 @@ spec:
           image: "{{ .Values.vmagent.image.repository }}:{{ .Values.vmagent.image.tag }}"
           imagePullPolicy: "{{ .Values.vmagent.image.pullPolicy }}"
           command:
-            - "/otelcontribcol"
+            - "/signoz-collector"
             - "--config=/config/otel-collector-config.yaml"
           resources:
             {{- toYaml .Values.vmagent.resources | nindent 12 }}

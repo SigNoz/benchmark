@@ -28,10 +28,10 @@ spec:
                     - amd64
       containers:
         - name: otel-collector
-          image: signoz/otelcontribcol:0.43.0
+          image: signoz/signoz-otel-collector:0.55.0
           imagePullPolicy: Always
           command:
-          - "/otelcontribcol"
+          - "/signoz-collector"
           - "--config=/conf/otel-collector-config.yaml"
           env:
             - name: K8S_NODE_NAME
