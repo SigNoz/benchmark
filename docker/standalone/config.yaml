@@ -2,26 +2,28 @@ receivers:
   otlp:
     protocols:
       grpc:
+        endpoint: 0.0.0.0:4317
       http:
+        endpoint: 0.0.0.0:4318
   hostmetrics:
-    collection_interval: 1m
+    collection_interval: 30s
     scrapers:
-      cpu:
-      disk:
-      load:
-      filesystem:
-      memory:
-      network:
-      paging:
+      cpu: {}
+      disk: {}
+      load: {}
+      filesystem: {}
+      memory: {}
+      network: {}
+      paging: {}
       process:
         mute_process_name_error: true
-      processes:
+      processes: {}
   prometheus:
     config:
       global:
         scrape_interval: 30s
       scrape_configs:
-        - job_name: otel-collector
+        - job_name: otel-collector-binary
           static_configs:
             - targets: ['localhost:8888']
 processors:
@@ -47,13 +49,24 @@ exporters:
   logging:
     logLevel: debug
 service:
-  extensions: [health_check, zpages]
+  telemetry:
+    metrics:
+      address: 0.0.0.0:8888
+  extensions: [health_check, pprof, zpages]
   pipelines:
     metrics:
-      receivers: [otlp, hostmetrics]
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp]
+    metrics/internal:
+      receivers: [prometheus, hostmetrics]
       processors: [resourcedetection, batch]
       exporters: [otlp]
-    metrics/prometheusexporter:
-      receivers: [prometheus]
-      processors: [resourcedetection, batch]
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp]
+    logs:
+      receivers: [otlp]
+      processors: [batch]
       exporters: [otlp]
