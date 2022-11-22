@@ -237,7 +237,7 @@
       "modificationUUID": "d7bda50a-b877-493d-99e4-df1f365dbbb2",
       "multiSelect": false,
       "queryValue": "SELECT DISTINCT(JSONExtractString(labels, 'host_name'))\nFROM signoz_metrics.time_series_v2",
-      "selectedValue": "ip-192-168-50-79.ec2.internal",
+      "selectedValue": "",
       "showALLOption": false,
       "sort": "DISABLED",
       "textboxValue": "",
