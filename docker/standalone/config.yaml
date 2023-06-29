@@ -35,7 +35,6 @@ processors:
     detectors: [env, system] # include ec2 for AWS, gce for GCP and azure for Azure.
     # Using OTEL_RESOURCE_ATTRIBUTES envvar, env detector adds custom labels.
     timeout: 2s
-    override: false
     system:
       hostname_sources: [os] # alternatively, use [dns,os] for setting FQDN as host.name and os as fallback
 extensions:
