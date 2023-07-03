@@ -41,7 +41,7 @@ processors:
     timeout: 10s
   # Ref: https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/processor/resourcedetectionprocessor/README.md
   resourcedetection:
-    detectors: [env, system] # include ec2 for AWS, gce for GCP and azure for Azure.
+    detectors: [env, system] # include ec2 for AWS, gcp for GCP and azure for Azure.
     # Using OTEL_RESOURCE_ATTRIBUTES envvar, env detector adds custom labels.
     timeout: 2s
     system:
