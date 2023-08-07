@@ -48,7 +48,8 @@ exporters:
     headers:
       signoz-access-token: "<Ingestion Token Key>"  # replace with signoz provided ingestion token key
   logging:
-    loglevel: debug
+    # verbosity of the logging export: detailed, normal, basic
+    verbosity: normal
 service:
   telemetry:
     metrics:

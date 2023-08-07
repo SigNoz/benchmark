@@ -55,7 +55,8 @@ exporters:
     tls:
       insecure: true
   logging:
-    logLevel: debug
+    # verbosity of the logging export: detailed, normal, basic
+    verbosity: normal
 service:
   extensions: [health_check, zpages]
   pipelines:
