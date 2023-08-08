@@ -27,7 +27,7 @@ appending/overiding the resource value in telemetry data.
 ```yaml
 processors:
   resourcedetection/env:
-    detectors: [env, system] # include ec2 for AWS, gce for GCP and azure for Azure.
+    detectors: [env, system] # include ec2 for AWS, gcp for GCP and azure for Azure.
     # Using OTEL_RESOURCE_ATTRIBUTES envvar, env detector adds custom labels.
     timeout: 2s
     system:
@@ -46,10 +46,10 @@ Follow the steps below for OpenTelemetry Collector Binary:
 
 ```bash
 # download linux amd64 deb file
-wget https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.45.0/otelcol-contrib_0.45.0_linux_amd64.deb
+wget https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.79.0/otelcol-contrib_0.79.0_linux_amd64.deb
 
 # install otelcol using dpkg
-sudo dpkg -i otelcol-contrib_0.45.0_linux_amd64.deb
+sudo dpkg -i otelcol-contrib_0.79.0_linux_amd64.deb
 
 # wget standalone config
 wget https://github.com/SigNoz/benchmark/raw/main/docker/standalone/config.yaml

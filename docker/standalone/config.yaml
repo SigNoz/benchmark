@@ -46,7 +46,8 @@ exporters:
     tls:
       insecure: true
   logging:
-    loglevel: debug
+    # verbosity of the logging export: detailed, normal, basic
+    verbosity: normal
 service:
   telemetry:
     metrics:
