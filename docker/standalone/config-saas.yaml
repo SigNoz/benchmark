@@ -17,6 +17,8 @@ receivers:
       paging: {}
       process:
         mute_process_name_error: true
+        mute_process_exe_error: true
+        mute_process_io_error: true
       processes: {}
   prometheus:
     config:
@@ -42,7 +44,7 @@ extensions:
   zpages: {}
 exporters:
   otlp:
-    endpoint: "ingest.signoz.io:4317" # use ingest-eu for Europle, ingest-in for India.
+    endpoint: "ingest.{region}.signoz.io:4317" # For region, use us for USA, eu for Europle, in for India.
     tls:
       insecure: false
     headers:
