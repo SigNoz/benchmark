@@ -23,7 +23,7 @@ Parameters:
     Type: String
     Description: Using the right command to choose the config file you want to config your signoz-collector
     Default: Default
-  SigNozConfigContent:
+  SigNozConfigPath:
     Type: String
     Description: Enter the name of your SigNoz config file to fetch from SSM Parameter Store
     Default: Default
@@ -103,7 +103,7 @@ Resources:
           command: [ !Ref command ]
           Secrets:
             - Name: SIGNOZ_CONFIG_CONTENT
-              ValueFrom: !Ref SigNozConfigContent
+              ValueFrom: !Ref SigNozConfigPath
           HealthCheck:
             Command:
               - CMD-SHELL
