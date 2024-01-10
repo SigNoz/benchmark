@@ -1,0 +1,85 @@
+extensions:
+  health_check:
+
+receivers:
+  awscontainerinsightreceiver:
+    collection_interval: 30s
+    container_orchestrator: ecs
+  filelog:
+    start_at: beginning
+    include_file_path: true
+    include:
+      - /rootfs/var/log/dmesg
+      - /rootfs/var/log/messages
+      - /rootfs/var/log/*.log
+      - /rootfs/var/lib/docker/containers/*/*.log
+  hostmetrics:
+    root_path: /rootfs
+    collection_interval: 30s
+    scrapers:
+      cpu: {}
+      load: {}
+      memory: {}
+      disk: {}
+      filesystem: {}
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+processors:
+  batch:
+    timeout: 10s
+  batch/aws:
+    timeout: 60s
+  resource/aws:
+    attributes:
+      - key: Timestamp
+        action: delete
+  resourcedetection:
+    detectors:
+      - env
+      - ec2
+      - ecs
+      - docker
+      - system
+    timeout: 2s
+    override: false
+
+exporters:
+  otlp:
+    endpoint: "<IP of machine hosting SigNoz>:4317"
+    tls:
+      insecure: true
+  logging:
+    verbosity: normal
+
+service:
+  pipelines:
+    metrics/aws:
+      receivers: [awscontainerinsightreceiver]
+      processors: [resource/aws, batch/aws]
+      exporters: [otlp]
+    metrics/host:
+      receivers: [hostmetrics]
+      processors: [resourcedetection, batch]
+      exporters: [otlp]
+    logs/host:
+      receivers: [filelog]
+      processors: [resourcedetection, batch]
+      exporters: [otlp]
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp, logging]
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp, logging]
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp, logging]
+  extensions: [health_check]

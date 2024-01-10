@@ -1,0 +1,58 @@
+extensions:
+  health_check:
+
+receivers:
+  awsecscontainermetrics:
+    collection_interval: 30s
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+processors:
+  batch:
+    timeout: 10s
+  filter:
+    metrics:
+      include:
+        match_type: strict
+        metric_names:
+          - ecs.task.memory.reserved
+          - ecs.task.memory.utilized
+          - ecs.task.cpu.reserved
+          - ecs.task.cpu.utilized
+          - ecs.task.network.rate.rx
+          - ecs.task.network.rate.tx
+          - ecs.task.storage.read_bytes
+          - ecs.task.storage.write_bytes
+          - container.duration
+
+exporters:
+  otlp:
+    endpoint: "<IP of machine hosting SigNoz>:4317"
+    tls:
+      insecure: true
+  logging:
+    verbosity: normal
+
+service:
+  extensions: [health_check]
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp, logging]
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp, logging]
+    metrics/aws:
+      receivers: [awsecscontainermetrics]
+      processors: [filter]
+      exporters: [otlp, logging]
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp, logging]
