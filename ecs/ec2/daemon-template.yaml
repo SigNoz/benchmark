@@ -84,23 +84,17 @@ Resources:
             - ReadOnly: true
               ContainerPath: /rootfs/cgroup
               SourceVolume: al1_cgroup
-            - ReadOnly: true
-              ContainerPath: /rootfs/var/log
-              SourceVolume: logs
-            - ReadOnly: true
-              ContainerPath: /rootfs/var/lib/docker/containers
-              SourceVolume: docker_logs
-            - ReadOnly: true
-              ContainerPath: /var/run/docker.sock
-              SourceVolume: docker_sock
           PortMappings:
+            - ContainerPort: 2255
+              HostPort: 2255
+              Protocol: tcp
             - ContainerPort: 4317
               HostPort: 4317
               Protocol: tcp
             - ContainerPort: 4318
               HostPort: 4318
               Protocol: tcp
-          command: [ !Ref command ]
+          Command: [ !Ref command ]
           Secrets:
             - Name: SIGNOZ_CONFIG_CONTENT
               ValueFrom: !Ref SigNozConfigPath
@@ -115,7 +109,24 @@ Resources:
             LogDriver: awslogs
             Options:
               awslogs-create-group: 'True'
-              awslogs-group: /ecs/ecs-cwagent-daemon-service
+              awslogs-group: /ecs/daemon-signoz-collector
+              awslogs-region: !Ref 'AWS::Region'
+              awslogs-stream-prefix: ecs
+        - Image: gliderlabs/logspout:v3.2.14
+          Name: signoz-logspout
+          MountPoints:
+            - ReadOnly: true
+              ContainerPath: /etc/host_hostname
+              SourceVolume: host_hostname
+            - ContainerPath: /var/run/docker.sock
+              SourceVolume: docker_sock
+          Command:
+            - 'syslog+tcp://localhost:2255'
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-create-group: 'True'
+              awslogs-group: /ecs/daemon-signoz-logspout
               awslogs-region: !Ref 'AWS::Region'
               awslogs-stream-prefix: ecs
       RequiresCompatibilities:
@@ -133,12 +144,9 @@ Resources:
         - Name: al2_cgroup
           Host:
             SourcePath: /sys/fs/cgroup
-        - Name: logs
+        - Name: host_hostname
           Host:
-            SourcePath: /var/log
-        - Name: docker_logs
-          Host:
-            SourcePath: /var/lib/docker/containers
+            SourcePath: /etc/hostname
         - Name: docker_sock
           Host:
             SourcePath: /var/run/docker.sock
