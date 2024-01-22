@@ -5,14 +5,6 @@ receivers:
   awscontainerinsightreceiver:
     collection_interval: 30s
     container_orchestrator: ecs
-  filelog:
-    start_at: beginning
-    include_file_path: true
-    include:
-      - /rootfs/var/log/dmesg
-      - /rootfs/var/log/messages
-      - /rootfs/var/log/*.log
-      - /rootfs/var/lib/docker/containers/*/*.log
   hostmetrics:
     root_path: /rootfs
     collection_interval: 30s
@@ -28,6 +20,23 @@ receivers:
         endpoint: 0.0.0.0:4317
       http:
         endpoint: 0.0.0.0:4318
+  tcplog:
+    listen_address: "0.0.0.0:2255"
+    operators:
+      - type: regex_parser
+        regex: '^<([0-9]+)>[0-9]+ (?P<timestamp>[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]+)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?Z) (?P<instance_name>\S+) ecs-(?P<task_family>\S+)-(?P<task_revision>[0-9]+)-(?P<container_name>\S+)-(?P<container_id_unique>[0-9a-f]+) [0-9]+ - -( (?P<body>.*))?'
+        timestamp:
+          parse_from: attributes.timestamp
+          layout: '%Y-%m-%dT%H:%M:%S.%LZ'
+      - type: move
+        from: attributes["body"]
+        to: body
+      - type: remove
+        field: attributes.timestamp
+        # please remove names from below if you want to collect logs from them
+      - type: filter
+        id: signoz_logs_filter
+        expr: 'attributes.container_name matches "^signoz-(collector|logspout)"'
 
 processors:
   batch:
@@ -43,7 +52,6 @@ processors:
       - env
       - ec2
       - ecs
-      - docker
       - system
     timeout: 2s
     override: false
@@ -66,9 +74,9 @@ service:
       receivers: [hostmetrics]
       processors: [resourcedetection, batch]
       exporters: [otlp]
-    logs/host:
-      receivers: [filelog]
-      processors: [resourcedetection, batch]
+    logs/tcplog:
+      receivers: [tcplog]
+      processors: [batch]
       exporters: [otlp]
     traces:
       receivers: [otlp]
