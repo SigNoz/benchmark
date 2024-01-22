@@ -71,7 +71,7 @@ Resources:
       NetworkMode: awsvpc
       ContainerDefinitions:
         - Name: signoz-collector
-          Image: 'signoz/signoz-otel-collector:0.79.7'
+          Image: 'signoz/signoz-otel-collector:0.88.8'
           User: root
           PortMappings:
             - ContainerPort: 4317
